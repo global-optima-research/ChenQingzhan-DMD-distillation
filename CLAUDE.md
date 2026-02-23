@@ -2,9 +2,9 @@
 
 ## Developer Info
 
-- **Name:** Chen Qingzhan (陈庆展 / Chen Hing Chin)
+- **Name:** 陈庆展 / Chen Hing Chin
 - **Email:** hcchenab@connect.ust.hk
-- **Branch:** `phase2-dev-ChenHingChin`
+- **Branch:** `task3-dev-ChenHingChin`
 - **Role:** Task 3 — DMD Distillation & Acceleration (Progressive Distillation & Discriminator)
 - **Team:** Task 3 subgroup (4 members: Li Yijia, Chen Qingzhan, Sze Long, Qiu Zhangxizi)
 - **Group Leaders:** Li Zhiying, Jacky
