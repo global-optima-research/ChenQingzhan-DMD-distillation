@@ -1,5 +1,7 @@
 # 陈庆展 (Chen Hing Chin) — 个人工作看板
 
+> Status: personal historical board. Current consolidated entrypoint: `03-dmd-distillation/OVERVIEW.md`
+
 > **项目:** PVTT (Product Video Template Transfer) | IP-2026-Spring
 > **所属任务组:** Task 3 — DMD 蒸馏加速（4人组）
 > **小组 Leader:** 李志颖、Jacky

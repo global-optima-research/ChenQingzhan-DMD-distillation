@@ -1,5 +1,12 @@
 # IP-2026-Spring: Video Editing 技术调研
 
+## 当前执行入口
+
+- Task 3 当前整合文档：`03-dmd-distillation/OVERVIEW.md`
+- Task 3 技术综述：`03-dmd-distillation/README.md`
+
+本文件仍保留为较大范围的 Video Editing 调研资料，不作为 DMD 蒸馏阶段的当前执行说明。
+
 > **团队内部调研文档** | Global Optima Research
 > 本文档旨在帮助团队成员全面了解 Video Editing 领域的定义、核心任务、关键技术和前沿进展。
 

@@ -1,5 +1,7 @@
 # Phase 0 Progress — DMD Distillation Reproduction
 
+> Status: historical progress log. Current consolidated entrypoint: `03-dmd-distillation/OVERVIEW.md`
+
 > **Author:** Chen Hing Chin (陈庆展)
 > **Branch:** `Task3_dev_ChenHingChin`
 > **Start Date:** 2026-03-02

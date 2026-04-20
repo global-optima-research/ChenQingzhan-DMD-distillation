@@ -1,5 +1,7 @@
 # PVTT项目DMD蒸馏与加速技术综述
 
+> This file is the technical survey. Current execution/status entrypoint: `03-dmd-distillation/OVERVIEW.md`
+
 ## 目录
 
 1. [项目背景与目标](#1-项目背景与目标)

@@ -1,0 +1,175 @@
+nohup: ignoring input
+xFormers not available
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.configs.config_utils:serialize_config:315 ] Config is saved at /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/samples/config.yaml
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.utils.scripts:setup:87 ] No DDP or FSDP parallelism
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.utils.scripts:setup:113 ] Changing gradient accumulation rounds from 1 to 2 to match requested global batch size.
+[Apr 20, 2026 - 01:15:14 | CRITICAL | fastgen.utils.scripts:setup:118 ] Global batch size: 2 (Batch size per GPU: 1, Gradient accumulation rounds: 2, World size: 1)
+[Apr 20, 2026 - 01:15:14 | CRITICAL | fastgen.utils.scripts:set_cuda_backend:46 ] cuDNN deterministic: False, cuDNN benchmark: True, enable TF32: False
+[Apr 20, 2026 - 01:15:14 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 2 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/eval_2prompts.txt
+[Apr 20, 2026 - 01:15:14 | INFO | __main__:main:537 ] I2V: truncated 5 images to 2 prompts
+[Apr 20, 2026 - 01:15:14 | INFO | __main__:main:539 ] I2V mode: 2 input images for 2 prompts
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.utils.basic_utils:set_random_seed:144 ] Using random seed 42.
+[Apr 20, 2026 - 01:15:14 | CRITICAL | fastgen.methods.model:set_precision:172 ] Model and data precision: torch.bfloat16. AMP training precision: None. AMP en-/decoder precision: None. AMP inference precision: None. FSDP precision: torch.bfloat16.
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.methods.model:__init__:52 ] Input shape is [16, 21, 60, 104].
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.methods.model:build_model:252 ] Instantiating the generator network
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 49.80it/s]
+[Apr 20, 2026 - 01:15:14 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+Downloading shards:   0%|          | 0/5 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 5/5 [00:00<00:00, 8676.67it/s]
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:01,  2.55it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:01,  2.84it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:01<00:00,  2.95it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:01<00:00,  2.87it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:01<00:00,  2.82it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:01<00:00,  2.83it/s]
+[Apr 20, 2026 - 01:15:24 | INFO | fastgen.methods.model:build_teacher:188 ] Instantiating the teacher
+[Apr 20, 2026 - 01:15:24 | INFO | fastgen.methods.model:build_teacher:190 ] build_teacher: add_teacher_to_fsdp_dict=True, fsdp_meta_init=False, meta_init_teacher=False
+[Apr 20, 2026 - 01:15:24 | CRITICAL | fastgen.methods.model:teacher_config:182 ] Using teacher config (usually due to teacher architecture being different from student)
+[Apr 20, 2026 - 01:15:24 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 10908.46it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 53.21it/s]
+[Apr 20, 2026 - 01:15:24 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.methods.model:build_teacher:196 ] Teacher guidance scale set to 5.0 (skip-layer guidance: None)
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.methods.model:load_student_weights_and_ema:216 ] Loading student weights
+[Apr 20, 2026 - 01:15:25 | WARNING | fastgen.methods.model:load_student_weights_and_ema:234 ] No student weights specified. This might be intended if the student initialization already loads pretrained weights (e.g., from diffusers).
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.methods.model:_setup_ema:69 ] Initializing EMA network ema_1
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 55.59it/s]
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:15:25 | SUCCESS | fastgen.methods.model:_setup_ema:82 ] Loaded EMA network ema_1. Loading info: <All keys matched successfully>
+[Apr 20, 2026 - 01:15:25 | INFO | scripts.inference.inference_utils:load_checkpoint:112 ] ckpt_path: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000, save_dir: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/ffgo_cd_32step_5000iter_20260417_6gpu_cd/0005000
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.utils.checkpointer:load:382 ] Loading FSDP model from prefix /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000
+[Apr 20, 2026 - 01:15:25 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key net...
+/data/chenqingzhan/miniconda3/envs/fastgen/lib/python3.12/site-packages/torch/distributed/checkpoint/utils.py:483: UserWarning: torch.distributed is disabled, unavailable or uninitialized, assuming the intent is to load in a single process.
+  return func(*args, **kwargs)
+[Apr 20, 2026 - 01:15:39 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key ema_1...
+[Apr 20, 2026 - 01:15:41 | SUCCESS | scripts.inference.inference_utils:load_checkpoint:118 ] Loading successfully checkpoint 5000
+[Apr 20, 2026 - 01:15:41 | INFO | __main__:main:559 ] video_save_dir: /data/chenqingzhan/ffgo_inference_step_offset/cd/step16
+[Apr 20, 2026 - 01:15:41 | INFO | scripts.inference.inference_utils:setup_inference_modules:173 ] Evaluating student sample steps: 16
+[Apr 20, 2026 - 01:15:42 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 1 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/negative_prompt.txt
+[Apr 20, 2026 - 01:15:42 | WARNING | __main__:main:598 ] Found 1 negative prompts, only using the first one.
+[Apr 20, 2026 - 01:15:45 | INFO | __main__:main:615 ] [1/2] Generating: A golden retriever puppy playing joyfully in a sunny garden with colorful flower...
+[Apr 20, 2026 - 01:16:14 | INFO | __main__:main:686 ] Student sampling time: 26.04s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:16:19 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step16_0000_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step16/eval_2prompts.
+[Apr 20, 2026 - 01:16:19 | INFO | __main__:main:615 ] [2/2] Generating: A red sports car driving fast through a winding mountain road with autumn foliag...
+[Apr 20, 2026 - 01:16:49 | INFO | __main__:main:686 ] Student sampling time: 25.95s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:16:53 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step16_0001_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step16/eval_2prompts.
+xFormers not available
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.configs.config_utils:serialize_config:315 ] Config is saved at /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/samples/config.yaml
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.utils.scripts:setup:87 ] No DDP or FSDP parallelism
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.utils.scripts:setup:113 ] Changing gradient accumulation rounds from 1 to 2 to match requested global batch size.
+[Apr 20, 2026 - 01:17:02 | CRITICAL | fastgen.utils.scripts:setup:118 ] Global batch size: 2 (Batch size per GPU: 1, Gradient accumulation rounds: 2, World size: 1)
+[Apr 20, 2026 - 01:17:02 | CRITICAL | fastgen.utils.scripts:set_cuda_backend:46 ] cuDNN deterministic: False, cuDNN benchmark: True, enable TF32: False
+[Apr 20, 2026 - 01:17:02 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 2 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/eval_2prompts.txt
+[Apr 20, 2026 - 01:17:02 | INFO | __main__:main:537 ] I2V: truncated 5 images to 2 prompts
+[Apr 20, 2026 - 01:17:02 | INFO | __main__:main:539 ] I2V mode: 2 input images for 2 prompts
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.utils.basic_utils:set_random_seed:144 ] Using random seed 42.
+[Apr 20, 2026 - 01:17:02 | CRITICAL | fastgen.methods.model:set_precision:172 ] Model and data precision: torch.bfloat16. AMP training precision: None. AMP en-/decoder precision: None. AMP inference precision: None. FSDP precision: torch.bfloat16.
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.methods.model:__init__:52 ] Input shape is [16, 21, 60, 104].
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.methods.model:build_model:252 ] Instantiating the generator network
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 42.43it/s]
+[Apr 20, 2026 - 01:17:02 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+Downloading shards:   0%|          | 0/5 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 5/5 [00:00<00:00, 17260.51it/s]
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:01,  2.82it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:01,  2.90it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:01<00:00,  3.01it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:01<00:00,  3.07it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:01<00:00,  3.11it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:01<00:00,  3.05it/s]
+[Apr 20, 2026 - 01:17:12 | INFO | fastgen.methods.model:build_teacher:188 ] Instantiating the teacher
+[Apr 20, 2026 - 01:17:12 | INFO | fastgen.methods.model:build_teacher:190 ] build_teacher: add_teacher_to_fsdp_dict=True, fsdp_meta_init=False, meta_init_teacher=False
+[Apr 20, 2026 - 01:17:12 | CRITICAL | fastgen.methods.model:teacher_config:182 ] Using teacher config (usually due to teacher architecture being different from student)
+[Apr 20, 2026 - 01:17:12 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 18978.75it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 54.12it/s]
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.methods.model:build_teacher:196 ] Teacher guidance scale set to 5.0 (skip-layer guidance: None)
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.methods.model:load_student_weights_and_ema:216 ] Loading student weights
+[Apr 20, 2026 - 01:17:13 | WARNING | fastgen.methods.model:load_student_weights_and_ema:234 ] No student weights specified. This might be intended if the student initialization already loads pretrained weights (e.g., from diffusers).
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.methods.model:_setup_ema:69 ] Initializing EMA network ema_1
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 56.28it/s]
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:17:13 | SUCCESS | fastgen.methods.model:_setup_ema:82 ] Loaded EMA network ema_1. Loading info: <All keys matched successfully>
+[Apr 20, 2026 - 01:17:13 | INFO | scripts.inference.inference_utils:load_checkpoint:112 ] ckpt_path: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000, save_dir: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/ffgo_cd_32step_5000iter_20260417_6gpu_cd/0005000
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.utils.checkpointer:load:382 ] Loading FSDP model from prefix /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000
+[Apr 20, 2026 - 01:17:13 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key net...
+/data/chenqingzhan/miniconda3/envs/fastgen/lib/python3.12/site-packages/torch/distributed/checkpoint/utils.py:483: UserWarning: torch.distributed is disabled, unavailable or uninitialized, assuming the intent is to load in a single process.
+  return func(*args, **kwargs)
+[Apr 20, 2026 - 01:17:25 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key ema_1...
+[Apr 20, 2026 - 01:17:27 | SUCCESS | scripts.inference.inference_utils:load_checkpoint:118 ] Loading successfully checkpoint 5000
+[Apr 20, 2026 - 01:17:27 | INFO | __main__:main:559 ] video_save_dir: /data/chenqingzhan/ffgo_inference_step_offset/cd/step32
+[Apr 20, 2026 - 01:17:28 | INFO | scripts.inference.inference_utils:setup_inference_modules:173 ] Evaluating student sample steps: 32
+[Apr 20, 2026 - 01:17:28 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 1 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/negative_prompt.txt
+[Apr 20, 2026 - 01:17:28 | WARNING | __main__:main:598 ] Found 1 negative prompts, only using the first one.
+[Apr 20, 2026 - 01:17:31 | INFO | __main__:main:615 ] [1/2] Generating: A golden retriever puppy playing joyfully in a sunny garden with colorful flower...
+[Apr 20, 2026 - 01:18:27 | INFO | __main__:main:686 ] Student sampling time: 52.08s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:18:32 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step32_0000_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step32/eval_2prompts.
+[Apr 20, 2026 - 01:18:32 | INFO | __main__:main:615 ] [2/2] Generating: A red sports car driving fast through a winding mountain road with autumn foliag...
+[Apr 20, 2026 - 01:19:27 | INFO | __main__:main:686 ] Student sampling time: 52.10s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:19:31 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step32_0001_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step32/eval_2prompts.
+xFormers not available
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.configs.config_utils:serialize_config:315 ] Config is saved at /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/samples/config.yaml
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.utils.scripts:setup:87 ] No DDP or FSDP parallelism
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.utils.scripts:setup:113 ] Changing gradient accumulation rounds from 1 to 2 to match requested global batch size.
+[Apr 20, 2026 - 01:19:41 | CRITICAL | fastgen.utils.scripts:setup:118 ] Global batch size: 2 (Batch size per GPU: 1, Gradient accumulation rounds: 2, World size: 1)
+[Apr 20, 2026 - 01:19:41 | CRITICAL | fastgen.utils.scripts:set_cuda_backend:46 ] cuDNN deterministic: False, cuDNN benchmark: True, enable TF32: False
+[Apr 20, 2026 - 01:19:41 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 2 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/eval_2prompts.txt
+[Apr 20, 2026 - 01:19:41 | INFO | __main__:main:537 ] I2V: truncated 5 images to 2 prompts
+[Apr 20, 2026 - 01:19:41 | INFO | __main__:main:539 ] I2V mode: 2 input images for 2 prompts
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.utils.basic_utils:set_random_seed:144 ] Using random seed 42.
+[Apr 20, 2026 - 01:19:41 | CRITICAL | fastgen.methods.model:set_precision:172 ] Model and data precision: torch.bfloat16. AMP training precision: None. AMP en-/decoder precision: None. AMP inference precision: None. FSDP precision: torch.bfloat16.
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.methods.model:__init__:52 ] Input shape is [16, 21, 60, 104].
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.methods.model:build_model:252 ] Instantiating the generator network
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 55.24it/s]
+[Apr 20, 2026 - 01:19:41 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+Downloading shards:   0%|          | 0/5 [00:00<?, ?it/s]Downloading shards: 100%|██████████| 5/5 [00:00<00:00, 8325.34it/s]
+Loading checkpoint shards:   0%|          | 0/5 [00:00<?, ?it/s]Loading checkpoint shards:  20%|██        | 1/5 [00:00<00:00,  5.20it/s]Loading checkpoint shards:  40%|████      | 2/5 [00:00<00:00,  5.34it/s]Loading checkpoint shards:  60%|██████    | 3/5 [00:00<00:00,  5.39it/s]Loading checkpoint shards:  80%|████████  | 4/5 [00:00<00:00,  5.41it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00,  5.44it/s]Loading checkpoint shards: 100%|██████████| 5/5 [00:00<00:00,  5.40it/s]
+[Apr 20, 2026 - 01:19:50 | INFO | fastgen.methods.model:build_teacher:188 ] Instantiating the teacher
+[Apr 20, 2026 - 01:19:50 | INFO | fastgen.methods.model:build_teacher:190 ] build_teacher: add_teacher_to_fsdp_dict=True, fsdp_meta_init=False, meta_init_teacher=False
+[Apr 20, 2026 - 01:19:50 | CRITICAL | fastgen.methods.model:teacher_config:182 ] Using teacher config (usually due to teacher architecture being different from student)
+[Apr 20, 2026 - 01:19:50 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files: 100%|██████████| 2/2 [00:00<00:00, 16288.56it/s]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 53.53it/s]
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.methods.model:build_teacher:196 ] Teacher guidance scale set to 5.0 (skip-layer guidance: None)
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.methods.model:load_student_weights_and_ema:216 ] Loading student weights
+[Apr 20, 2026 - 01:19:51 | WARNING | fastgen.methods.model:load_student_weights_and_ema:234 ] No student weights specified. This might be intended if the student initialization already loads pretrained weights (e.g., from diffusers).
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.methods.model:_setup_ema:69 ] Initializing EMA network ema_1
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.networks.Wan.network:_initialize_network:658 ] Loading Wan transformer
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 54.79it/s]
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.networks.Wan.network:__init__:611 ] Skipped logvar_linear layer (disabled by enable_logvar_linear=False)
+[Apr 20, 2026 - 01:19:51 | SUCCESS | fastgen.methods.model:_setup_ema:82 ] Loaded EMA network ema_1. Loading info: <All keys matched successfully>
+[Apr 20, 2026 - 01:19:51 | INFO | scripts.inference.inference_utils:load_checkpoint:112 ] ckpt_path: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000, save_dir: /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_step_offset/ffgo_cd_32step_5000iter_20260417_6gpu_cd/0005000
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.utils.checkpointer:load:382 ] Loading FSDP model from prefix /data/chenqingzhan/fastgen_output/fastgen/wan_ffgo_cd_stage/ffgo_cd_32step_5000iter_20260417_6gpu_cd/checkpoints/0005000
+[Apr 20, 2026 - 01:19:51 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key net...
+/data/chenqingzhan/miniconda3/envs/fastgen/lib/python3.12/site-packages/torch/distributed/checkpoint/utils.py:483: UserWarning: torch.distributed is disabled, unavailable or uninitialized, assuming the intent is to load in a single process.
+  return func(*args, **kwargs)
+[Apr 20, 2026 - 01:20:03 | INFO | fastgen.utils.checkpointer:load:385 ] Loading the FSDP model dict for key ema_1...
+[Apr 20, 2026 - 01:20:04 | SUCCESS | scripts.inference.inference_utils:load_checkpoint:118 ] Loading successfully checkpoint 5000
+[Apr 20, 2026 - 01:20:04 | INFO | __main__:main:559 ] video_save_dir: /data/chenqingzhan/ffgo_inference_step_offset/cd/step50
+[Apr 20, 2026 - 01:20:05 | INFO | scripts.inference.inference_utils:setup_inference_modules:173 ] Evaluating student sample steps: 50
+[Apr 20, 2026 - 01:20:06 | INFO | scripts.inference.inference_utils:load_prompts:71 ] Loaded 1 prompts from /data/chenqingzhan/FastGen/scripts/inference/prompts/negative_prompt.txt
+[Apr 20, 2026 - 01:20:06 | WARNING | __main__:main:598 ] Found 1 negative prompts, only using the first one.
+[Apr 20, 2026 - 01:20:10 | INFO | __main__:main:615 ] [1/2] Generating: A golden retriever puppy playing joyfully in a sunny garden with colorful flower...
+[Apr 20, 2026 - 01:21:35 | INFO | __main__:main:686 ] Student sampling time: 81.42s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:21:40 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step50_0000_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step50/eval_2prompts.
+[Apr 20, 2026 - 01:21:40 | INFO | __main__:main:615 ] [2/2] Generating: A red sports car driving fast through a winding mountain road with autumn foliag...
+[Apr 20, 2026 - 01:23:05 | INFO | __main__:main:686 ] Student sampling time: 81.49s
+huggingface/tokenizers: The current process just got forked, after parallelism has already been used. Disabling parallelism to avoid deadlocks...
+To disable this warning, you can either:
+	- Avoid using `tokenizers` before the fork if possible
+	- Explicitly set the environment variable TOKENIZERS_PARALLELISM=(true | false)
+[Apr 20, 2026 - 01:23:09 | INFO | fastgen.utils.basic_utils:save_video:418 ] Saved video student_step50_0001_seed42.mp4 to /data/chenqingzhan/ffgo_inference_step_offset/cd/step50/eval_2prompts.
