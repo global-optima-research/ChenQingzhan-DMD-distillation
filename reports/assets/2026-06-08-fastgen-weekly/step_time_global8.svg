@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="450.0" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Wan2.1 DMD2 Training Step Time</text>
+<line x1="82" y1="448.00" x2="866" y2="448.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="452.00" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">18.50</text>
+<line x1="82" y1="372.80" x2="866" y2="372.80" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="376.80" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">21.10</text>
+<line x1="82" y1="297.60" x2="866" y2="297.60" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="301.60" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">23.70</text>
+<line x1="82" y1="222.40" x2="866" y2="222.40" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="226.40" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">26.30</text>
+<line x1="82" y1="147.20" x2="866" y2="147.20" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="151.20" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">28.90</text>
+<line x1="82" y1="72.00" x2="866" y2="72.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="76.00" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">31.50</text>
+<line x1="82.00" y1="72" x2="82.00" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="82.00" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1</text>
+<line x1="238.80" y1="72" x2="238.80" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="238.80" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">281</text>
+<line x1="395.60" y1="72" x2="395.60" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="395.60" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">561</text>
+<line x1="552.40" y1="72" x2="552.40" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="552.40" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">840</text>
+<line x1="709.20" y1="72" x2="709.20" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="709.20" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1120</text>
+<line x1="866.00" y1="72" x2="866.00" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="866.00" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1400</text>
+<line x1="82" y1="448" x2="866" y2="448" stroke="#111827" stroke-width="1.2"/>
+<line x1="82" y1="72" x2="82" y2="448" stroke="#111827" stroke-width="1.2"/>
+<line x1="82" y1="420.08" x2="866" y2="420.08" stroke="#059669" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="862" y="414.08" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#059669">mean excl. warmup 19.47s</text>
+<path d="M82.00,104.03 L92.65,421.19 L103.86,422.95 L115.06,419.40 L126.27,416.43 L137.48,418.54 L148.69,420.38 L159.90,421.89 L171.10,421.35 L182.31,422.69 L193.52,422.64 L204.73,417.35 L215.94,417.92 L227.14,419.70 L238.35,421.52 L249.56,416.18 L260.77,424.13 L271.98,423.63 L283.18,420.46 L294.39,404.89 L305.60,419.13 L316.81,420.70 L328.02,422.69 L339.22,423.43 L350.43,423.61 L361.64,423.41 L372.85,419.80 L384.06,415.77 L395.26,419.32 L406.47,419.81 L417.68,422.42 L428.89,422.79 L440.10,423.16 L451.30,423.30 L462.51,419.90 L473.72,417.46 L484.93,418.57 L496.14,420.91 L507.34,422.20 L518.55,422.83 L529.76,423.50 L540.97,421.03 L552.18,396.29 L563.38,418.85 L574.59,420.97 L585.80,421.43 L597.01,423.02 L608.22,422.91 L619.42,421.41 L630.63,414.04 L641.84,419.13 L653.05,420.97 L664.26,422.83 L675.46,422.66 L686.67,423.32 L697.88,420.53 L709.09,411.32 L720.30,417.64 L731.50,420.97 L742.71,421.97 L753.92,422.80 L765.13,423.24 L776.34,420.97 L787.54,412.86 L798.75,419.14 L809.96,420.92 L821.17,421.48 L832.38,422.78 L843.58,423.63 L854.79,421.92 L866.00,416.44" fill="none" stroke="#2563eb" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="82.00" cy="104.03" r="3" fill="#2563eb"/>
+<circle cx="866.00" cy="416.44" r="3" fill="#2563eb"/>
+<rect x="82" y="43" width="16" height="3" fill="#2563eb"/>
+<text x="104" y="48" font-family="Arial, sans-serif" font-size="13" fill="#111827">global_8 run</text>
+<text x="450.0" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">Iteration</text>
+<text transform="translate(22,260.0) rotate(-90)" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">Seconds / iteration</text>
+<text x="82" y="496" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Source: LocalStats CSV, global batch 8, per-GPU batch 1.</text>
+</svg>

@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="520" viewBox="0 0 900 520">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="450.0" y="34" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#111827">Per-GPU CUDA Memory Reserved</text>
+<line x1="82" y1="448.00" x2="866" y2="448.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="452.00" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">25.50</text>
+<line x1="82" y1="372.80" x2="866" y2="372.80" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="376.80" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">26.96</text>
+<line x1="82" y1="297.60" x2="866" y2="297.60" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="301.60" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">28.42</text>
+<line x1="82" y1="222.40" x2="866" y2="222.40" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="226.40" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">29.88</text>
+<line x1="82" y1="147.20" x2="866" y2="147.20" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="151.20" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">31.34</text>
+<line x1="82" y1="72.00" x2="866" y2="72.00" stroke="#e5e7eb" stroke-width="1"/>
+<text x="72" y="76.00" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">32.80</text>
+<line x1="82.00" y1="72" x2="82.00" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="82.00" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1</text>
+<line x1="238.80" y1="72" x2="238.80" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="238.80" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">281</text>
+<line x1="395.60" y1="72" x2="395.60" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="395.60" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">561</text>
+<line x1="552.40" y1="72" x2="552.40" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="552.40" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">840</text>
+<line x1="709.20" y1="72" x2="709.20" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="709.20" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1120</text>
+<line x1="866.00" y1="72" x2="866.00" y2="448" stroke="#f3f4f6" stroke-width="1"/>
+<text x="866.00" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#4b5563">1400</text>
+<line x1="82" y1="448" x2="866" y2="448" stroke="#111827" stroke-width="1.2"/>
+<line x1="82" y1="72" x2="82" y2="448" stroke="#111827" stroke-width="1.2"/>
+<line x1="82" y1="113.21" x2="866" y2="113.21" stroke="#475569" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="862" y="107.21" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#475569">32GB card capacity reference</text>
+<line x1="82" y1="259.58" x2="866" y2="259.58" stroke="#be123c" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="862" y="253.58" text-anchor="end" font-family="Arial, sans-serif" font-size="12" fill="#be123c">observed peak 29.16GB</text>
+<path d="M82.00,401.62 L92.65,263.50 L103.86,262.49 L115.06,262.49 L126.27,262.49 L137.48,262.49 L148.69,262.49 L159.90,262.49 L171.10,262.49 L182.31,262.49 L193.52,262.49 L204.73,262.49 L215.94,262.49 L227.14,262.49 L238.35,262.49 L249.56,262.49 L260.77,262.49 L271.98,262.49 L283.18,262.49 L294.39,262.49 L305.60,260.58 L316.81,260.58 L328.02,260.58 L339.22,260.58 L350.43,260.58 L361.64,260.58 L372.85,264.61 L384.06,264.61 L395.26,264.61 L406.47,264.61 L417.68,261.59 L428.89,261.59 L440.10,261.59 L451.30,261.59 L462.51,261.59 L473.72,261.59 L484.93,261.59 L496.14,261.59 L507.34,261.59 L518.55,261.59 L529.76,261.59 L540.97,261.59 L552.18,261.59 L563.38,261.59 L574.59,261.59 L585.80,261.59 L597.01,261.59 L608.22,261.59 L619.42,261.59 L630.63,261.59 L641.84,261.59 L653.05,264.51 L664.26,264.51 L675.46,262.60 L686.67,261.49 L697.88,261.49 L709.09,261.49 L720.30,261.49 L731.50,261.49 L742.71,261.49 L753.92,261.49 L765.13,261.49 L776.34,261.49 L787.54,261.49 L798.75,259.58 L809.96,259.58 L821.17,259.58 L832.38,259.58 L843.58,259.58 L854.79,259.58 L866.00,259.58" fill="none" stroke="#7c3aed" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="82.00" cy="401.62" r="3" fill="#7c3aed"/>
+<circle cx="866.00" cy="259.58" r="3" fill="#7c3aed"/>
+<rect x="82" y="43" width="16" height="3" fill="#7c3aed"/>
+<text x="104" y="48" font-family="Arial, sans-serif" font-size="13" fill="#111827">step peak reserved</text>
+<path d="M82.00,401.62 L92.65,263.50 L103.86,262.49 L115.06,262.49 L126.27,262.49 L137.48,262.49 L148.69,262.49 L159.90,262.49 L171.10,262.49 L182.31,262.49 L193.52,262.49 L204.73,262.49 L215.94,262.49 L227.14,262.49 L238.35,262.49 L249.56,262.49 L260.77,262.49 L271.98,262.49 L283.18,262.49 L294.39,262.49 L305.60,260.58 L316.81,260.58 L328.02,260.58 L339.22,260.58 L350.43,260.58 L361.64,260.58 L372.85,260.58 L384.06,260.58 L395.26,260.58 L406.47,260.58 L417.68,260.58 L428.89,260.58 L440.10,260.58 L451.30,260.58 L462.51,260.58 L473.72,260.58 L484.93,260.58 L496.14,260.58 L507.34,260.58 L518.55,260.58 L529.76,260.58 L540.97,260.58 L552.18,260.58 L563.38,260.58 L574.59,260.58 L585.80,260.58 L597.01,260.58 L608.22,260.58 L619.42,260.58 L630.63,260.58 L641.84,260.58 L653.05,260.58 L664.26,260.58 L675.46,260.58 L686.67,260.58 L697.88,260.58 L709.09,260.58 L720.30,260.58 L731.50,260.58 L742.71,260.58 L753.92,260.58 L765.13,260.58 L776.34,260.58 L787.54,260.58 L798.75,259.58 L809.96,259.58 L821.17,259.58 L832.38,259.58 L843.58,259.58 L854.79,259.58 L866.00,259.58" fill="none" stroke="#ea580c" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="82.00" cy="401.62" r="3" fill="#ea580c"/>
+<circle cx="866.00" cy="259.58" r="3" fill="#ea580c"/>
+<rect x="292" y="43" width="16" height="3" fill="#ea580c"/>
+<text x="314" y="48" font-family="Arial, sans-serif" font-size="13" fill="#111827">global peak reserved</text>
+<text x="450.0" y="500" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">Iteration</text>
+<text transform="translate(22,260.0) rotate(-90)" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#111827">GB reserved</text>
+<text x="82" y="496" font-family="Arial, sans-serif" font-size="12" fill="#6b7280">Source: torch.cuda memory stats via LocalStats callback.</text>
+</svg>
