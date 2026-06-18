@@ -1,187 +1,98 @@
-# PVTT DMD Distillation Overview
+# Task 3 Overview
 
-这份文档是 `03-dmd-distillation/` 的当前主入口，作为本仓库在 Task 3 阶段的单一事实来源。
+Updated on `2026-06-05`.
 
-历史记录、个人看板、组会纪要仍然保留，但默认只作为参考，不再作为当前状态的主文档。
+This file is the active source of truth for Task 3. Historical notes are preserved under `archive/`.
 
-## 1. 当前任务是什么
+## Current Mainline
 
-当前处于 **Phase 0：开源方案复现**。
+The current mainline is FastGen native `Wan2.2 TI2V 5B / WanI2V / DMD2` distillation on the UST server.
 
-目标不是立即做 PVTT 业务适配，而是先基于公开代码跑通 Wan 蒸馏训练和推理流程，明确哪套框架适合作为后续开发底座。
+Active assumptions:
 
-当前聚焦：
-- 框架：`FastGen`
-- 基座模型：`Wan2.1-T2V-1.3B`
-- 数据：`OpenVid-1M -> WebDataset(mp4 + txt)`
-- 方法对比：`DMD2 / ECT / CD / f-distill / LADD`
+- Server alias: `ust_ip`
+- Login target: `chenqingzhan@111.17.197.107`
+- Hostname: `RTX-5090-32G-X8`
+- FastGen path: `/data/chenqingzhan/FastGen`
+- Model path: `/data/chenqingzhan/.cache/huggingface/models--Wan-AI--Wan2.2-TI2V-5B-Diffusers`
+- Data path: `/data/datasets/OpenVid-1M/webdataset`
+- Main FastGen config: `fastgen/configs/experiments/WanI2V/config_dmd2_wan22_5b.py`
 
-## 2. 整体路线
+Use `03-dmd-distillation/HANDOFF.md` for detailed verified history and known failure modes.
 
-### Phase 0：复现验证
+## Default Pipeline
 
-1. 搭建 FastGen 运行环境。
-2. 下载 Wan2.1 1.3B 权重并验证 teacher 50-step 推理。
-3. 准备统一训练数据：
-   `OpenVid-1M -> 过滤 -> WebDataset tar shards`
-4. 在单卡模式下复现多种蒸馏方法。
-5. 记录训练配置、显存、Loss 曲线、样本质量。
-6. 形成复现报告，选定后续主 codebase。
+Use the unified experiment layer in the repository root:
 
-### Phase 1：PVTT 任务适配
+```bash
+bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/run_remote.sh --dry-run experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/run_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+```
 
-1. 等 Task 2 交付 PVTT teacher model。
-2. 把蒸馏框架改成支持：
-   `source video + reference image + mask`
-3. 做渐进式蒸馏：
-   `50 -> 16 -> 8 -> 4`
-4. 增加视频编辑任务专用损失：
-   `temporal / background / identity / adversarial`
-5. 训练最终 4-step student model。
+The lower-level scripts in `03-dmd-distillation/scripts/` remain available for setup, data conversion, and direct FastGen debugging. New experiment variants should be added as `experiments/configs/*.env`, not as standalone root scripts.
 
-## 3. 当前预期产物
+## Validated Route
 
-- Phase 0：
-  - 训练可跑通的 FastGen 单卡脚本
-  - OpenVid-1M 的 WebDataset 数据
-  - 多方法复现结果对比
-  - 复现报告
+The most stable recorded route is:
 
-- Phase 1：
-  - PVTT 适配后的蒸馏训练代码
-  - 渐进式 student checkpoints
-  - 4-step 推理模型
+- `torchrun --standalone --nproc_per_node=2`
+- two GPUs with less than about `100 MiB` already used
+- `trainer.ddp=False`
+- `trainer.fsdp=True`
+- `trainer.fsdp_cpu_offload=True`
+- `trainer.batch_size_global=2`
+- `dataloader_train.batch_size=1`
+- `dataloader_train.sequence_length=65`
+- `model.input_shape=[48,17,44,80]`
+- `model.student_sample_steps=2`
+- `model.guidance_scale=null`
+- `FASTGEN_DISABLE_MEDIA_LOGGING=true`
 
-## 4. 当前服务器信息
+The exact native `guidance_scale=5.0` path has repeatedly OOMed on this server unless the experiment is carefully constrained. Treat CFG=5 as an explicit experiment, not the default smoke/stage route.
 
-仓库内已明确的信息：
+## Experiment Policy
 
-- Server IP: `111.17.197.107`
-- GPU: `8x RTX 5090 32GB`
-- CPU: `384 cores`
-- RAM: `1TB`
-- Disk: `21TB total`, 约 `10TB free`
-- OS: `Ubuntu`, Linux `5.15.0`
-- Python env: `conda env fastgen`, Python `3.12.12`
-- PyTorch: `2.10.0+cu128`
-- CUDA Toolkit: `12.8`
+Each run should have:
 
-当前默认运行模式：
-- 单卡
-- `CUDA_VISIBLE_DEVICES=0`
+- one config: `experiments/configs/*.env`
+- one remote log: `/data/chenqingzhan/logs/<run>.log`
+- one remote output/checkpoint path
+- one short result note: `experiments/results/YYYY-MM-DD-run-name.md`
 
-仓库中记录了服务端路径约定：
-- FastGen：`/data/chenqingzhan/FastGen`
-- 输出目录：`/data/chenqingzhan/fastgen_output`
-- HuggingFace 缓存：`/data/chenqingzhan/.cache/huggingface`
-- OpenVid 数据：`/data/datasets/OpenVid-1M`
+Before launching:
 
-注意：
-- 仓库里只有服务器 IP、环境和目录约定。
-- **没有完整记录 ssh 用户名、端口、密钥位置、标准登录命令。**
-- 如果后续要让别人无歧义接手，应该补一份最小化登录说明。
+1. run `check_remote.sh`
+2. inspect GPU memory and utilization
+3. run `run_remote.sh --dry-run`
+4. verify `RUN_NAME`, log path, output root, checkpoint path, and data tag
 
-## 5. 当前推荐执行顺序
+After launching:
 
-### A. 环境与模型
+1. record PID and log path
+2. check the first metrics and first checkpoint
+3. write a short result note
 
-- `03-dmd-distillation/setup_server.sh`
-- `03-dmd-distillation/scripts/download_model.sh`
-- `03-dmd-distillation/scripts/run_inference.sh`
+## Active Files
 
-目的：
-- 把环境装好
-- 下载 Wan2.1 1.3B
-- 先确认 50-step teacher inference 正常
+| File | Purpose |
+|---|---|
+| `HANDOFF.md` | Detailed current handoff and verified server facts |
+| `Wan22_TI2V_5B_Execution_Plan.md` | Original execution plan and blockers |
+| `FastGen_Guide.md` | FastGen technical notes |
+| `scripts/README.md` | Reusable helper script inventory |
 
-### B. 数据准备
+## Archived Context
 
-- `03-dmd-distillation/scripts/download_openvid.sh`
-- `03-dmd-distillation/scripts/convert_to_webdataset.py`
-- `03-dmd-distillation/scripts/prepare_training_data.sh`
+Moved out of the active path:
 
-目标输出：
-- `/data/datasets/OpenVid-1M/webdataset/shard-xxxxxx.tar`
+- weekly reports: `archive/reports/weekly/`
+- midterm package: `archive/reports/midterm-2026-05/`
+- old Phase 0 reports: `archive/reports/phase0-dmd-distillation/`
+- old meeting/personal notes: `archive/notes/`
+- old one-off Wan2.2 scripts: `archive/scripts/wan22-i2v-2026-05/`
+- old FastGen patch snapshots: `archive/server-patches/`
+- long surveys: `archive/surveys/`
 
-### C. 方法复现
+Use archived files for background only. Re-check the server before treating any archived status as current.
 
-- `run_dmd2_single_gpu.sh`
-- `run_ect_single_gpu.sh`
-- `run_cd_single_gpu.sh`
-- `run_fdistill_single_gpu.sh`
-- `run_ladd_single_gpu.sh`
-
-说明：
-- `run_meanflow_single_gpu.sh` 需要 latent shards，不走当前这套 mp4+txt 数据准备流程。
-
-## 6. 当前脚本状态
-
-### 可以保留并继续完善
-
-- `convert_to_webdataset.py`
-- `download_openvid.sh`
-- `prepare_training_data.sh`
-- `run_inference.sh`
-- `config_cm_ct.py`
-- `config_cm_cd.py`
-
-### 当前有明显对接问题，需要修
-
-- `run_dmd2_single_gpu.sh`
-  - 缺少数据路径覆盖
-  - 缺少 `model.net.model_id_or_local_path` 覆盖
-
-- `run_ect_single_gpu.sh`
-- `run_cd_single_gpu.sh`
-- `run_fdistill_single_gpu.sh`
-- `run_ladd_single_gpu.sh`
-  - 默认数据路径仍指向 `/data/chenqingzhan/training_data/video_shards`
-  - 与当前 OpenVid 输出目录 `/data/datasets/OpenVid-1M/webdataset` 不一致
-
-- `run_meanflow_single_gpu.sh`
-  - 需要 latent 数据
-  - 当前仓库没有提供 latent 预处理流程
-
-## 7. 当前仓库文档建议怎么理解
-
-### 主文档
-
-- `03-dmd-distillation/OVERVIEW.md`
-
-### 技术综述
-
-- `03-dmd-distillation/README.md`
-
-### 历史记录与参考
-
-- `03-dmd-distillation/progress.md`
-- `03-dmd-distillation/meeting-2026-03-06.md`
-- `03-dmd-distillation/ChenHingChinReadMe.md`
-- `TASK-ASSIGNMENT.md`
-- 根目录 `README.md`
-
-## 8. 当前明确的待办
-
-1. 统一所有训练脚本的数据路径和参数风格。
-2. 把 DMD2 脚本补成真正可运行的主入口。
-3. 明确哪些脚本是单卡可跑、哪些只是占位。
-4. 增加最小化服务器登录说明。
-5. 决定是否把重复文档移到 `docs/archive/`，减少噪音。
-
-## 9. 清理建议
-
-如果下一步做仓库瘦身，建议按这个原则：
-
-- 保留：
-  - 当前主入口文档
-  - 真正可运行的脚本
-  - 自定义 FastGen 配置
-
-- 下沉到参考区：
-  - 个人看板
-  - 组会纪要
-  - 大段调研性质文档
-
-- 删除或归档前先确认：
-  - 是否仍有人依赖这些文档做周报或交接
-  - 是否已经把关键信息迁移到主文档

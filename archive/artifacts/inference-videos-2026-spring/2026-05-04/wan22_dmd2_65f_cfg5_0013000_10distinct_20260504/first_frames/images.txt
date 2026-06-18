@@ -1,0 +1,10 @@
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/00_garden_swing.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/01_red_balloon_city.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/02_sailboat_lake.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/03_snow_cabin.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/04_neon_street.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/05_forest_waterfall.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/06_desert_monolith.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/07_koi_pond.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/08_train_station.png
+/data/chenqingzhan/inference_inputs/wan22_13000_10distinct_20260504/09_observatory_stars.png

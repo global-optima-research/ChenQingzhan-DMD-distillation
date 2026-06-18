@@ -1,0 +1,1 @@
+scripts/inference/examples/04_bird_flying_church_tower_clock.png

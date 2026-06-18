@@ -1,0 +1,1 @@
+scripts/inference/examples/00_child_swings_rusty_swing_set.png

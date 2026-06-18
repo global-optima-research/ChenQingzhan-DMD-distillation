@@ -1,0 +1,1 @@
+scripts/inference/examples/03_astronaut_cow_beach_van_gogh.png

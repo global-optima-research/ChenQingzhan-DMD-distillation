@@ -1,0 +1,1 @@
+scripts/inference/examples/01_impressionist_rubber_duck_sunset.png

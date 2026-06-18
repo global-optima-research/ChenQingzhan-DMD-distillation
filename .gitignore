@@ -5,12 +5,26 @@ Thumbs.db
 # Sensitive files
 ssh_run.sh
 CLAUDE.md
+.env.local
+*.local.env
 
 # Python
 __pycache__/
 *.pyc
 *.pyo
 .env
+
+# Runtime outputs
+*.log
+*.pid
+wandb/
+outputs/
+checkpoints/
+*.ckpt
+*.pth
+*.safetensors
+artifacts/raw/
+artifacts/tmp/
 
 # IDE
 .vscode/

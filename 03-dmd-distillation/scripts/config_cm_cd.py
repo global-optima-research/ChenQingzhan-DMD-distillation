@@ -54,6 +54,9 @@ def create_config():
 
     # Network: Wan2.1-1.3B
     config.model.net = copy.deepcopy(Wan_1_3B_Config)
+    # CD requires an explicit teacher backbone; keep it architecture-compatible
+    # with the student and let the launch script override the weight path.
+    config.model.teacher = copy.deepcopy(Wan_1_3B_Config)
     config.model.enable_preprocessors = False
 
     # Optimizer

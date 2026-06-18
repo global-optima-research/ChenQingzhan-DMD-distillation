@@ -1,0 +1,1 @@
+scripts/inference/examples/02_two_cyclists_stop_sign.png

@@ -45,5 +45,11 @@ echo "=== All done ==="
 echo "WebDataset shards: ${WEBDATASET_DIR}/"
 echo "Shared at: ${DATASET_ROOT} (readable by all team members)"
 echo ""
+SHARD_COUNT="$(find "${WEBDATASET_DIR}" -maxdepth 1 -name 'shard-*.tar' | wc -l | tr -d ' ')"
 echo "To use in FastGen training configs, set:"
-echo "  dataloader_train.datatags=[\"WDS:${WEBDATASET_DIR}/shard-{000000..000049}.tar\"]"
+if [ "${SHARD_COUNT}" -gt 0 ]; then
+    LAST_SHARD="$(printf "%06d" "$((SHARD_COUNT - 1))")"
+    echo "  dataloader_train.datatags=[\"WDS:${WEBDATASET_DIR}/shard-{000000..${LAST_SHARD}}.tar\"]"
+else
+    echo "  dataloader_train.datatags=[\"WDS:${WEBDATASET_DIR}\"]"
+fi
