@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="560" viewBox="0 0 1240 560" role="img" aria-label="Progressive distillation algorithm flow">
+  <defs>
+    <style>
+      .title{font:700 28px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .subtitle{font:15px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#475467}
+      .box{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .teacher{fill:#fff1f2;stroke:#e11d48;stroke-width:2}
+      .student{fill:#ecfdf5;stroke:#059669;stroke-width:2}
+      .target{fill:#fffbeb;stroke:#d97706;stroke-width:2}
+      .label{font:700 18px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .body{font:14px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#344054}
+      .small{font:12px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#667085}
+      .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrowhead)}
+      .thin{stroke:#64748b;stroke-width:2;fill:none;marker-end:url(#arrowhead2)}
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
+    </marker>
+    <marker id="arrowhead2" markerWidth="9" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 9 3, 0 6" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1240" height="560" fill="#ffffff"/>
+  <text x="42" y="48" class="title">Progressive Distillation: teacher 2 steps -> student 1 step</text>
+  <text x="42" y="78" class="subtitle">Each stage trains a student sampler with half as many DDIM steps, then promotes the student to the next-stage teacher.</text>
+
+  <rect x="50" y="132" width="220" height="106" rx="10" class="box"/>
+  <text x="75" y="166" class="label">1. Sample noisy state</text>
+  <text x="75" y="194" class="body">x from data, noise eps</text>
+  <text x="75" y="218" class="body">z_t = alpha_t x + sigma_t eps</text>
+
+  <path d="M285 185 L370 185" class="arrow"/>
+  <rect x="390" y="112" width="270" height="145" rx="10" class="teacher"/>
+  <text x="418" y="148" class="label">2. Teacher trajectory</text>
+  <text x="418" y="178" class="body">Run two deterministic DDIM steps</text>
+  <text x="418" y="204" class="body">z_t -> z_{t-0.5/N} -> z_{t-1/N}</text>
+  <text x="418" y="230" class="small">Teacher has N steps; student will use N/2</text>
+
+  <path d="M675 185 L760 185" class="arrow"/>
+  <rect x="780" y="112" width="285" height="145" rx="10" class="target"/>
+  <text x="808" y="148" class="label">3. Invert one student step</text>
+  <text x="808" y="178" class="body">Compute target x_tilde</text>
+  <text x="808" y="204" class="body">so one student DDIM step reaches</text>
+  <text x="808" y="230" class="body">the same z_{t-1/N}</text>
+
+  <path d="M923 272 L923 335" class="arrow"/>
+  <rect x="745" y="355" width="355" height="112" rx="10" class="student"/>
+  <text x="775" y="389" class="label">4. Train student</text>
+  <text x="775" y="418" class="body">Minimize weighted MSE to teacher-derived target</text>
+  <text x="775" y="443" class="body">student one step approximates teacher two steps</text>
+
+  <path d="M730 411 L520 411 L520 285" class="thin"/>
+  <text x="392" y="413" class="small">after convergence: student becomes next teacher</text>
+
+  <rect x="75" y="340" width="250" height="118" rx="10" class="box"/>
+  <text x="102" y="374" class="label">Repeat stages</text>
+  <text x="102" y="404" class="body">N -> N/2 -> N/4 -> ...</text>
+  <text x="102" y="429" class="body">8192/1024 steps can be reduced</text>
+  <text x="102" y="454" class="body">to few-step samplers</text>
+</svg>

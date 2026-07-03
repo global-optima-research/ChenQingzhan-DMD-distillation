@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="560" viewBox="0 0 1180 560" role="img" aria-label="Literature support map for progressive distillation">
+  <defs>
+    <style>
+      .title{font:700 26px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .subtitle{font:15px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#475467}
+      .cluster{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .core{fill:#ecfdf5;stroke:#059669;stroke-width:2}
+      .p1{fill:#eff6ff;stroke:#2563eb;stroke-width:1.8}
+      .p2{fill:#fff7ed;stroke:#ea580c;stroke-width:1.8}
+      .p3{fill:#fdf2f8;stroke:#db2777;stroke-width:1.8}
+      .p4{fill:#f5f3ff;stroke:#7c3aed;stroke-width:1.8}
+      .label{font:700 17px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .paper{font:14px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#344054}
+      .small{font:12px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#667085}
+      .arrow{stroke:#64748b;stroke-width:2.4;fill:none;marker-end:url(#arrowhead)}
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+    </marker>
+  </defs>
+  <rect width="1180" height="560" fill="#ffffff"/>
+  <text x="42" y="48" class="title">Evidence Map: Why 50 -> 8 -> 4 Is a Defensible Route</text>
+  <text x="42" y="78" class="subtitle">The route is supported by four converging literature lines: progressive step reduction, consistency distillation, distribution matching, and video-specific few-step distillation.</text>
+
+  <rect x="420" y="215" width="340" height="125" rx="14" class="core"/>
+  <text x="458" y="255" class="label">Our working hypothesis</text>
+  <text x="458" y="284" class="paper">Progressive DMD2 distillation</text>
+  <text x="458" y="308" class="paper">50-step teacher -> 8-step -> 4-step</text>
+
+  <rect x="40" y="125" width="310" height="120" rx="12" class="p1"/>
+  <text x="62" y="158" class="label">Step reduction</text>
+  <text x="62" y="187" class="paper">Progressive Distillation</text>
+  <text x="62" y="211" class="small">Repeated distillation to fewer steps, down to 4</text>
+
+  <rect x="830" y="125" width="310" height="120" rx="12" class="p2"/>
+  <text x="852" y="158" class="label">Consistency family</text>
+  <text x="852" y="187" class="paper">Consistency Models, LCM, VideoLCM</text>
+  <text x="852" y="211" class="small">Few-step generation with quality-speed tradeoff</text>
+
+  <rect x="40" y="360" width="310" height="120" rx="12" class="p3"/>
+  <text x="62" y="393" class="label">Distribution matching</text>
+  <text x="62" y="422" class="paper">DMD, DMD2, TDM</text>
+  <text x="62" y="446" class="small">Distribution-level objective; multi-step mismatch</text>
+
+  <rect x="830" y="360" width="310" height="120" rx="12" class="p4"/>
+  <text x="852" y="393" class="label">Video-specific acceleration</text>
+  <text x="852" y="422" class="paper">T2V-Turbo, DOLLAR, MCM, AnimateDiff-Lightning</text>
+  <text x="852" y="446" class="small">4-step video students and video failure modes</text>
+
+  <path d="M350 190 C405 205 410 240 420 260" class="arrow"/>
+  <path d="M830 190 C775 205 770 240 760 260" class="arrow"/>
+  <path d="M350 420 C405 405 410 335 420 305" class="arrow"/>
+  <path d="M830 420 C775 405 770 335 760 305" class="arrow"/>
+</svg>

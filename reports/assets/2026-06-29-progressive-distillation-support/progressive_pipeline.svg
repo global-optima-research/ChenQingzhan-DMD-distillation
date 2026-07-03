@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="430" viewBox="0 0 1180 430" role="img" aria-label="Progressive distillation pipeline from 50-step teacher to 8-step student to 4-step student">
+  <defs>
+    <style>
+      .title{font:700 26px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .label{font:700 20px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#17202a}
+      .body{font:15px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#344054}
+      .small{font:13px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#667085}
+      .box{fill:#f8fafc;stroke:#cbd5e1;stroke-width:2}
+      .teacher{fill:#fff1f2;stroke:#e11d48}
+      .student8{fill:#eff6ff;stroke:#2563eb}
+      .student4{fill:#ecfdf5;stroke:#059669}
+      .evidence{fill:#fffbeb;stroke:#d97706}
+      .arrow{stroke:#334155;stroke-width:3;fill:none;marker-end:url(#arrowhead)}
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#334155"/>
+    </marker>
+  </defs>
+  <rect width="1180" height="430" fill="#ffffff"/>
+  <text x="40" y="48" class="title">Progressive Few-Step Distillation: 50 -> 8 -> 4</text>
+  <text x="40" y="78" class="body">The literature supports reducing the teacher-student gap stage by stage instead of compressing 50 steps directly to 4 steps.</text>
+
+  <rect x="45" y="125" width="250" height="135" rx="10" class="box teacher"/>
+  <text x="70" y="160" class="label">Teacher sampler</text>
+  <text x="70" y="190" class="body">Wan2.1-T2V teacher</text>
+  <text x="70" y="215" class="body">50 denoising steps</text>
+  <text x="70" y="240" class="small">High quality, slow inference</text>
+
+  <path d="M315 192 L425 192" class="arrow"/>
+  <rect x="445" y="125" width="250" height="135" rx="10" class="box student8"/>
+  <text x="470" y="160" class="label">Stage 1 student</text>
+  <text x="470" y="190" class="body">8-step DMD2 student</text>
+  <text x="470" y="215" class="body">Default LR + larger batch</text>
+  <text x="470" y="240" class="small">Learns intermediate trajectory</text>
+
+  <path d="M715 192 L825 192" class="arrow"/>
+  <rect x="845" y="125" width="250" height="135" rx="10" class="box student4"/>
+  <text x="870" y="160" class="label">Stage 2 student</text>
+  <text x="870" y="190" class="body">4-step progressive student</text>
+  <text x="870" y="215" class="body">Initialized from best 8-step</text>
+  <text x="870" y="240" class="small">Fast inference target</text>
+
+  <rect x="70" y="305" width="285" height="76" rx="9" class="box evidence"/>
+  <text x="92" y="333" class="body">Progressive Distillation</text>
+  <text x="92" y="356" class="small">Repeatedly halves / reduces sampler steps</text>
+
+  <rect x="447" y="305" width="285" height="76" rx="9" class="box evidence"/>
+  <text x="469" y="333" class="body">DMD2 / distribution matching</text>
+  <text x="469" y="356" class="small">Addresses multi-step train-inference mismatch</text>
+
+  <rect x="824" y="305" width="285" height="76" rx="9" class="box evidence"/>
+  <text x="846" y="333" class="body">Video few-step distillation</text>
+  <text x="846" y="356" class="small">4-step T2V students reported in recent work</text>
+</svg>
