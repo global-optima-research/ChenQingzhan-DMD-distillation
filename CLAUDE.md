@@ -35,6 +35,8 @@ Start every session with:
 4. `03-dmd-distillation/HANDOFF.md`
 5. `03-dmd-distillation/OVERVIEW.md`
 
+For a research-planning/director session, use `research/planner_startprompt.md` as the startup prompt. That role reads `research/README.md`, `research/workflow.md`, and `research/task_brief_template.md` first, then reconciles this local research repo with the actual remote FastGen state at `ust_ip:/data/chenqingzhan/FastGen`.
+
 ## Experiment Workflow
 
 Use config-driven launches:
@@ -55,6 +57,13 @@ Rules:
 - Do not create new root-level one-off scripts.
 - Archived reports and scripts are context only, not current state.
 
+Research workflow rule:
+
+- The local repository contains stage reports and curated evidence.
+- Actual code, logs, outputs, and checkpoints live on `ust_ip:/data/chenqingzhan/FastGen`.
+- A planner agent must do a read-only remote status check before treating any local handoff as current.
+- The planner role should not launch training unless the user explicitly changes the task from research planning to experiment execution.
+
 ## Language Rules
 
 - Communicate with the user in Chinese unless they initiate in English.
@@ -66,9 +75,9 @@ Rules:
 | Path | Purpose |
 |---|---|
 | `experiments/` | Active config-driven experiment pipeline |
+| `research/` | Planner/content-agent workflow for literature, novelty, T0/T1-T4 tasks, and submission planning |
 | `03-dmd-distillation/` | Active Task 3 technical notes and helper scripts |
 | `agents/` | Agent roles and operating rules |
 | `artifacts/` | Curated local inference evidence |
 | `reports/` | Active short reports only |
 | `archive/` | Historical surveys, reports, notes, scripts, and patch snapshots |
-

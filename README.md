@@ -33,6 +33,7 @@ bash experiments/bin/run_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.
 | Path | Purpose |
 |---|---|
 | `experiments/` | Unified experiment configs, launch scripts, and result templates |
+| `research/` | Research workflow kit for planner/content-agent literature, novelty, and submission planning |
 | `03-dmd-distillation/` | Active Task 3 notes, FastGen handoff, and reusable scripts |
 | `agents/` | Agent roles and operating rules for research sessions |
 | `artifacts/` | Curated local inference samples and visual evidence |
@@ -51,3 +52,4 @@ Read in this order for a new session:
 4. `03-dmd-distillation/HANDOFF.md`
 5. `03-dmd-distillation/OVERVIEW.md`
 
+For a research-planning session, start from `research/planner_startprompt.md` instead. That prompt initializes the research workflow kit, re-checks the local/remote split, and requires the planner agent to summarize its understanding before writing T0 or issuing literature tasks.

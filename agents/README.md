@@ -29,6 +29,7 @@ bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage
 | Remote Runner | Check GPU state, launch through `experiments/bin/run_remote.sh`, and record log paths |
 | Result Analyst | Read logs/checkpoints, summarize metrics, and identify next action |
 | Repo Curator | Keep active docs short; archive old reports and one-off scripts |
+| Research Planner | Use `research/planner_startprompt.md` to run T0 analysis, create literature task briefs, validate reports, and maintain research summaries |
 
 ## Rules
 
@@ -41,6 +42,17 @@ bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage
 - After a run, add or update a short result note under `experiments/results/`.
 - Keep code and config text in English; user-facing explanations can be Chinese.
 
+## Research Workflow Prompt
+
+For literature positioning, novelty checks, or submission planning, start a new planner agent with:
+
+```text
+Work in /Users/chenhingchin/Desktop/ChenQingzhan-DMD-distillation.
+Paste and follow research/planner_startprompt.md.
+First reconcile the local research reports with the remote FastGen state at ust_ip:/data/chenqingzhan/FastGen.
+Summarize your understanding and wait for user confirmation before writing research/T0_project_analysis.md.
+```
+
 ## Fast Handoff Prompt
 
 ```text
@@ -48,4 +60,3 @@ Work in this repository. Read README.md, agents/README.md, experiments/README.md
 
 Use ssh ust_ip. Before launching any experiment, run experiments/bin/check_remote.sh with the target config. Use experiments/bin/run_remote.sh --dry-run first. Record logs, checkpoints, and a short result summary under experiments/results/.
 ```
-
