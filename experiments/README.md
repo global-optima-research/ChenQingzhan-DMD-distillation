@@ -1,39 +1,54 @@
 # Experiments
 
-This directory is the default interface for fast research iteration.
+This directory is the one-line submission interface for the current mainline:
+FastGen `WanT2V` (Wan2.1-T2V-1.3B) DMD2 progressive `50 -> 8 -> 4` distillation.
+The canonical experiment record is `reports/experiment-report-wan21-t2v-dmd2-progressive.md`.
 
 ## Workflow
 
 1. Pick or create one config in `experiments/configs/`.
-2. Check server state.
-3. Dry-run the command.
-4. Launch only after the command and GPU choice are clear.
-5. Record the result under `experiments/results/`.
+2. Precheck server state (paths + GPU occupancy).
+3. Dry-run to see the exact remote command.
+4. Launch only after the dry-run output and GPU choice are clear.
+5. Record the result under `experiments/results/` and update the canonical experiment report.
 
 ```bash
-bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
-bash experiments/bin/run_remote.sh --dry-run experiments/configs/wan22_dmd2_no_cfg_stage1.env
-bash experiments/bin/run_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/check_remote.sh experiments/configs/wan21_check.env
+bash experiments/bin/run_remote_script.sh --dry-run experiments/configs/wan21_dmd2_step4_relay_eval10.env
+bash experiments/bin/run_remote_script.sh experiments/configs/wan21_dmd2_step4_relay_eval10.env
 ```
 
-## Config Types
+## How the one-line layer works
 
-| Kind | Required fields |
+`run_remote_script.sh` runs a parameterized remote script inside the FastGen repo
+(`fastgen/configs/experiments/WanT2V/run_*.sh`) with env overrides from the `.env` file:
+
+| Field | Meaning |
 |---|---|
-| `train` | `EXPERIMENT_ID`, `RUN_NAME`, `CUDA_DEVICES`, `CONFIG_PATH`, `MODEL_PATH`, `DATA_TAG`, `MAX_ITER` |
-| `inference` | `EXPERIMENT_ID`, `RUN_NAME`, `GPU_ID`, `CKPT_PATH`, `PROMPTS_FILE`, `IMAGES_FILE`, `SAMPLE_COUNT` |
+| `REMOTE_SCRIPT` | remote script path, relative to the FastGen repo |
+| `CUDA_DEVICES` + `GPU_MAX_USED_MB` | GPU precheck before launch (aborts if any selected GPU is busy) |
+| `REMOTE_ENV` | quoted `VAR=value` string exported on the server before the script runs |
+| `DETACH` | 1 = nohup background + pid echo, 0 = stream in foreground |
+
+New experiment variants (P1a/P1c LR/batch/R1 sweeps, P2 t_list shapes) change the python config
+on the remote (`fastgen/configs/experiments/WanT2V/*.py`, one variable per experiment, new
+`log_config.name`), then point `CONFIG=...` inside `REMOTE_ENV`.
 
 ## Current Configs
 
 | Config | Purpose |
 |---|---|
-| `wan22_dmd2_no_cfg_stage1.env` | Validated no-CFG Wan2.2 DMD2 stage route |
-| `wan22_dmd2_65f_cfg5_formal.env` | 65-frame CFG=5 formal training template |
-| `wan22_dmd2_0013000_infer_10distinct.env` | 10-sample inference template from checkpoint `0013000` |
+| `wan21_check.env` | Read-only precheck of paths, model, data, and GPUs |
+| `wan21_dmd2_step4_relay_train.env` | Train the 4-step student relayed from 8-step `lr_original/0002500` |
+| `wan21_dmd2_step4_relay_eval10.env` | Eval-10 inference sweep over relay checkpoints (skips complete ones) |
+
+Legacy: the Wan2.2 line's `wan22_*.env` configs are archived at `archive/scripts/wan22-env-configs/`
+and only run through the legacy `experiments/bin/run_remote.sh`.
 
 ## Result Notes
 
-Use `experiments/results/README.md` as the template. A result note should be short enough to scan and complete enough to resume:
+Use `experiments/results/README.md` as the template. A result note should be short enough to scan
+and complete enough to resume:
 
 - date and run name
 - config path
@@ -42,4 +57,3 @@ Use `experiments/results/README.md` as the template. A result note should be sho
 - status
 - key metrics or failure signature
 - next action
-

@@ -34,13 +34,12 @@
 4. `experiments/README.md` - 实验配置和结果记录方式
 5. `03-dmd-distillation/OVERVIEW.md` - DMD distillation 当前技术入口
 6. `03-dmd-distillation/HANDOFF.md` - 旧 handoff、已验证事实和失败模式
-7. 最近 active reports，优先：
-   - `reports/2026-06-29-lightning-progressive-adversarial-distillation-report.md`
-   - `reports/2026-06-29-progressive-distillation-core-path-report.md`
-   - `reports/2026-06-29-progressive-distillation-literature-support.md`
-   - `reports/2026-06-29-progressive-distillation-paper-reading.md`
-   - `reports/2026-06-25-progressive-distillation-paper-list.md`
-   - `reports/2026-06-17-wan-dmd2-openvid-progress.md`
+7. 当前正式记录（2026-07-07 更新）：
+   - `research/T0_project_analysis.md`（已确认的状态校正与证据分级）
+   - `research/T1_video_fewstep_distillation_landscape.md`、`research/T2_dmd2_component_neighbors.md`
+   - `reports/experiment-report-wan21-t2v-dmd2-progressive.md`（唯一正式实验记录）
+   - `reports/2026-06-17-wan-dmd2-openvid-progress.md`（冻结的 6 月 artifact 索引）
+   - 2026-06 的五份文献报告已被 T1/T2 取代，归档于 `archive/reports/literature-2026-06/`
 
 `archive/` 只能作为历史背景。不要把 archived reports 当成当前事实，除非重新验证。
 

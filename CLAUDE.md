@@ -9,7 +9,7 @@
 
 ## Current Mainline
 
-The active technical target is FastGen native `Wan2.2 TI2V 5B / WanI2V / DMD2` distillation.
+The active technical target is FastGen native `Wan2.1-T2V-1.3B (WanT2V) / DMD2` progressive distillation (`50 -> 8 -> 4` steps) on OpenVid-1M. Corrected on 2026-07-06: the earlier `Wan2.2 TI2V 5B / WanI2V / DMD2` line stopped on 2026-05-10 and is historical context. Verified current state: `research/T0_project_analysis.md` (section 0).
 
 Default server access:
 
@@ -20,8 +20,9 @@ ssh ust_ip
 Known server paths:
 
 - FastGen: `/data/chenqingzhan/FastGen`
-- Logs: `/data/chenqingzhan/logs`
-- Output root: `/data/chenqingzhan/fastgen_output`
+- Output root (current line, since 2026-06-08): `/data/chenqingzhan/FastGen/FASTGEN_OUTPUT`
+- Output root (legacy, stale since 2026-06-06): `/data/chenqingzhan/fastgen_output`
+- Logs (legacy central dir, stale since 2026-06-06): `/data/chenqingzhan/logs`; current runs log into `<run_dir>/logs/` under `FASTGEN_OUTPUT`
 - HuggingFace cache: `/data/chenqingzhan/.cache/huggingface`
 - Data: `/data/datasets/OpenVid-1M/webdataset`
 
@@ -42,10 +43,12 @@ For a research-planning/director session, use `research/planner_startprompt.md` 
 Use config-driven launches:
 
 ```bash
-bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
-bash experiments/bin/run_remote.sh --dry-run experiments/configs/wan22_dmd2_no_cfg_stage1.env
-bash experiments/bin/run_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/check_remote.sh experiments/configs/wan21_check.env
+bash experiments/bin/run_remote_script.sh --dry-run experiments/configs/wan21_dmd2_step4_relay_eval10.env
+bash experiments/bin/run_remote_script.sh experiments/configs/wan21_dmd2_step4_relay_eval10.env
 ```
+
+The canonical experiment record is `reports/experiment-report-wan21-t2v-dmd2-progressive.md`; update it after every run. The legacy wan22 runner and configs are archived (`experiments/bin/run_remote.sh`, `archive/scripts/wan22-env-configs/`).
 
 Rules:
 

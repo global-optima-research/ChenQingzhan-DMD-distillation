@@ -1,13 +1,17 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# LEGACY runner for the Wan2.2 TI2V 5B / WanI2V line (stopped 2026-05-10).
+# Its wan22_*.env configs are archived at archive/scripts/wan22-env-configs/.
+# The current WanT2V line submits through experiments/bin/run_remote_script.sh.
+
 DRY_RUN=0
 if [ "${1:-}" = "--dry-run" ]; then
     DRY_RUN=1
     shift
 fi
 
-CONFIG="${1:-experiments/configs/wan22_dmd2_no_cfg_stage1.env}"
+CONFIG="${1:?legacy wan22 runner: pass a config explicitly (archived at archive/scripts/wan22-env-configs/)}"
 
 if [ ! -f "$CONFIG" ]; then
     echo "[run_remote] config not found: $CONFIG" >&2

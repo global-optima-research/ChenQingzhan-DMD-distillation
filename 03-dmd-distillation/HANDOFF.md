@@ -1,5 +1,7 @@
 # Wan2.2 TI2V 5B Handoff
 
+> **Status correction (2026-07-06).** This handoff covers the `Wan2.2 TI2V 5B / WanI2V / DMD2` line only through 2026-04-27. That line continued in May 2026 (65-frame CFG=5 runs up to a `0013000` checkpoint, not recorded here) and stopped on 2026-05-10. The active mainline since 2026-06-06 is `Wan2.1-T2V-1.3B (WanT2V) / DMD2` progressive `50 -> 8 -> 4` on OpenVid-1M. Do not resume from the procedures below without re-checking the server. Verified current state: `research/T0_project_analysis.md` (section 0).
+
 This file is the fast resume note for a new Codex session.
 
 Use absolute dates. Do not rely on "today", "yesterday", or "latest" without re-checking the server.

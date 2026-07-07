@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-CONFIG="${1:-experiments/configs/wan22_dmd2_no_cfg_stage1.env}"
+CONFIG="${1:-experiments/configs/wan21_check.env}"
 
 if [ ! -f "$CONFIG" ]; then
     echo "[check_remote] config not found: $CONFIG" >&2

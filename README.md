@@ -9,24 +9,28 @@ The active research line is:
 - Framework: `FastGen`
 - Server alias: `ust_ip`
 - Server user/path: `chenqingzhan@111.17.197.107:/data/chenqingzhan/FastGen`
-- Active target: `Wan2.2 TI2V 5B / WanI2V / DMD2`
+- Active target: `Wan2.1-T2V-1.3B (WanT2V) / DMD2` progressive `50 -> 8 -> 4` on OpenVid-1M (corrected 2026-07-06; the earlier `Wan2.2 TI2V 5B / WanI2V / DMD2` line stopped on 2026-05-10 and is historical context)
+- Current output root: `/data/chenqingzhan/FastGen/FASTGEN_OUTPUT/fastgen/wan_dmd2/`
 - Default goal: fast experiment iteration, reliable run logging, and short result summaries
+
+Verified current state and evidence grading: `research/T0_project_analysis.md` (2026-07-06).
 
 Use this repository for experiment planning, reproducible launch configs, result indexing, and handoff notes. Large training outputs and checkpoints should stay on the server unless explicitly curated.
 
 ## Quick Start
 
 ```bash
-ssh ust_ip
-bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
-bash experiments/bin/run_remote.sh --dry-run experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/check_remote.sh experiments/configs/wan21_check.env
+bash experiments/bin/run_remote_script.sh --dry-run experiments/configs/wan21_dmd2_step4_relay_eval10.env
 ```
 
 After reviewing the dry run, launch with:
 
 ```bash
-bash experiments/bin/run_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/run_remote_script.sh experiments/configs/wan21_dmd2_step4_relay_eval10.env
 ```
+
+Canonical experiment record: `reports/experiment-report-wan21-t2v-dmd2-progressive.md`.
 
 ## Directory Map
 

@@ -2,6 +2,8 @@
 
 Date: 2026-06-25
 
+> 更正/补充注记(2026-07-06,T1 验收回填):本清单条目经 T1 调研逐条原文核实,未发现事实错误;venue 补充/确认——DMD2 = NeurIPS 2024 Oral;PCM / MCM / T2V-Turbo = NeurIPS 2024;SDXL-Lightning 无会议接收记录(引用时按 ByteDance 技术报告处理);TDM 视频端基座为 CogVideoX-2B;DOLLAR 仍未见正式接收记录。详见 `research/T1_video_fewstep_distillation_landscape.md` 第 2.3 节。
+
 Current project question: whether the `50 -> 8 -> 4` progressive distillation route has paper support.
 
 Short answer: yes. The exact combination `Wan T2V + DMD2 + 50 -> 8 -> 4` is an engineering route in our codebase, but the core idea is well supported by diffusion distillation literature. The strongest evidence is:

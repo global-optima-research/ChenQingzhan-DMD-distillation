@@ -18,7 +18,7 @@ Read these first:
 Then run a non-invasive server check before proposing or launching work:
 
 ```bash
-bash experiments/bin/check_remote.sh experiments/configs/wan22_dmd2_no_cfg_stage1.env
+bash experiments/bin/check_remote.sh experiments/configs/wan21_check.env
 ```
 
 ## Roles
@@ -58,5 +58,5 @@ Summarize your understanding and wait for user confirmation before writing resea
 ```text
 Work in this repository. Read README.md, agents/README.md, experiments/README.md, 03-dmd-distillation/HANDOFF.md, and 03-dmd-distillation/OVERVIEW.md.
 
-Use ssh ust_ip. Before launching any experiment, run experiments/bin/check_remote.sh with the target config. Use experiments/bin/run_remote.sh --dry-run first. Record logs, checkpoints, and a short result summary under experiments/results/.
+Use ssh ust_ip. Before launching any experiment, run experiments/bin/check_remote.sh with experiments/configs/wan21_check.env. Use experiments/bin/run_remote_script.sh --dry-run first. Record logs, checkpoints, and a short result summary under experiments/results/, then update reports/experiment-report-wan21-t2v-dmd2-progressive.md.
 ```

@@ -2,7 +2,9 @@
 
 Updated on `2026-06-05`.
 
-This file is the active source of truth for Task 3. Historical notes are preserved under `archive/`.
+> **Status correction (2026-07-06).** This file describes the `Wan2.2 TI2V 5B / WanI2V` line, which stopped on 2026-05-10 and is no longer the mainline. The active line since 2026-06-06 is `Wan2.1-T2V-1.3B (WanT2V) / DMD2` progressive `50 -> 8 -> 4` distillation on OpenVid-1M, with outputs under `/data/chenqingzhan/FastGen/FASTGEN_OUTPUT/fastgen/wan_dmd2/`. See `research/T0_project_analysis.md` (section 0) for the verified current state. The content below is kept as historical context.
+
+This file was previously the active source of truth for Task 3. Historical notes are preserved under `archive/`.
 
 ## Current Mainline
 
