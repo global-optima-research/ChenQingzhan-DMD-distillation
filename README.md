@@ -1,59 +1,49 @@
-# DMD Distillation Research Workspace
+# Wan2.1-T2V DMD2 Progressive Distillation Workspace
 
-This repository is now organized as a lightweight workspace for FastGen-based video diffusion distillation experiments.
+Core goal: distill the 50-step `Wan2.1-T2V-1.3B` teacher into a **high-quality 4-step student** with DMD2, using a staged step-count relay (`50 -> 8 -> 4`): the best 8-step intermediate checkpoint initializes the 4-step stage (generator weights only; optimizer / fake score / discriminator reset).
 
-## Current Mainline
+## Current State (2026-07-13)
 
-The active research line is:
-
-- Framework: `FastGen`
-- Server alias: `ust_ip`
-- Server user/path: `chenqingzhan@111.17.197.107:/data/chenqingzhan/FastGen`
-- Active target: `Wan2.1-T2V-1.3B (WanT2V) / DMD2` progressive `50 -> 8 -> 4` on OpenVid-1M (corrected 2026-07-06; the earlier `Wan2.2 TI2V 5B / WanI2V / DMD2` line stopped on 2026-05-10 and is historical context)
-- Current output root: `/data/chenqingzhan/FastGen/FASTGEN_OUTPUT/fastgen/wan_dmd2/`
-- Default goal: fast experiment iteration, reliable run logging, and short result summaries
-
-Verified current state and evidence grading: `research/T0_project_analysis.md` (2026-07-06).
-
-Use this repository for experiment planning, reproducible launch configs, result indexing, and handoff notes. Large training outputs and checkpoints should stay on the server unless explicitly curated.
+- Milestones: thesis defense 2026-07-21; final thesis submission 2026-07-31.
+- Canonical experiment record: `reports/experiment-report-wan21-t2v-dmd2-progressive.md` — runs W1-W7; all quality conclusions are still visual-only, quantitative evaluation (E0) is the next step.
+- Verified facts and evidence grading: `research/T0_project_analysis.md`.
+- Research pipeline: T0-T3 accepted (T3 novelty adjudication governs claim wording); T4 pivoted to the thesis itself; paper-mainline candidate gated on E5 + GAN-0 results (`research/idea_mainline_candidate.md`).
+- Active plan (`research/experiment_plan.md`, 2026-07-11 sprint edition; supersedes the earlier P0-P2 ladder): E0 quantification of existing checkpoints, E1a/E1b 50->4 direct baselines vs W5+W7 relay, E2a-c discriminator audit (+E2d gated), E5 offline probe. Not started as of 2026-07-13 (remote idle since 2026-06-25).
+- Remote: `ust_ip:/data/chenqingzhan/FastGen` (branch `main`, `94a4517`); outputs under `FASTGEN_OUTPUT/fastgen/wan_dmd2/`; entry-script runbook at `fastgen/configs/experiments/WanT2V/README.md`.
 
 ## Quick Start
 
 ```bash
 bash experiments/bin/check_remote.sh experiments/configs/wan21_check.env
 bash experiments/bin/run_remote_script.sh --dry-run experiments/configs/wan21_dmd2_step4_relay_eval10.env
-```
-
-After reviewing the dry run, launch with:
-
-```bash
 bash experiments/bin/run_remote_script.sh experiments/configs/wan21_dmd2_step4_relay_eval10.env
 ```
 
-Canonical experiment record: `reports/experiment-report-wan21-t2v-dmd2-progressive.md`.
+## Read Order (new session)
+
+1. `README.md`
+2. `reports/experiment-report-wan21-t2v-dmd2-progressive.md`
+3. `research/T0_project_analysis.md`
+4. `experiments/README.md`
+
+Research-planning sessions start from `research/planner_startprompt.md` instead.
 
 ## Directory Map
 
 | Path | Purpose |
 |---|---|
-| `experiments/` | Unified experiment configs, launch scripts, and result templates |
-| `research/` | Research workflow kit for planner/content-agent literature, novelty, and submission planning |
-| `03-dmd-distillation/` | Active Task 3 notes, FastGen handoff, and reusable scripts |
-| `agents/` | Agent roles and operating rules for research sessions |
-| `artifacts/` | Curated local inference samples and visual evidence |
-| `reports/` | Active report index only; historical reports are archived |
-| `archive/` | Old surveys, weekly reports, meeting notes, historical scripts, and server patch records |
+| `experiments/` | One-line submission layer: `bin/`, `configs/`, `results/`, `tools/` |
+| `reports/` | Canonical experiment record + frozen June artifact index |
+| `research/` | Research pipeline: T0 analysis, T1-T4 briefs and reports, experiment plan, `paper/` PDFs |
+| `docs/` | FastGen framework manual |
+| `agents/` | Agent roles and operating rules |
+| `artifacts/` | Curated local evidence (small, git-friendly) |
+| `archive/` | Historical material only, incl. `archive/wan22-ti2v-line/` (the 2026-04/05 Wan2.2 TI2V 5B line) |
 
-## Operating Rule
+## Operating Rules
 
-One experiment should have one config, one remote log path, one output path, and one short local result note. Avoid adding one-off root scripts; put new launchable workflows under `experiments/bin/` and new settings under `experiments/configs/`.
-
-Read in this order for a new session:
-
-1. `README.md`
-2. `agents/README.md`
-3. `experiments/README.md`
-4. `03-dmd-distillation/HANDOFF.md`
-5. `03-dmd-distillation/OVERVIEW.md`
-
-For a research-planning session, start from `research/planner_startprompt.md` instead. That prompt initializes the research workflow kit, re-checks the local/remote split, and requires the planner agent to summarize its understanding before writing T0 or issuing literature tasks.
+- One experiment = one `experiments/configs/*.env` + one remote run dir + one `experiments/results/` note; always GPU-precheck and dry-run before launching.
+- Change one major factor per experiment; new variants get a new remote python config with a new `log_config.name`.
+- Quality claims only via the quantitative protocol (VBench 6-dim subset + CD-FVD + Dynamic Degree + cross-seed diversity; full VBench + human eval for main tables).
+- Method wording: "step-count relay" / "progressive step reduction" — never "phased DMD" or "progressive distribution matching" (names taken).
+- Use absolute dates. Archived material is context only.

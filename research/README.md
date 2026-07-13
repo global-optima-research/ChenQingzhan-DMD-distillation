@@ -10,7 +10,9 @@ This directory embeds the research workflow kit for the FastGen DMD distillation
 - ✅ 2026-07-06 T1 accepted (`research/T1_video_fewstep_distillation_landscape.md`): our combo (full DMD2 recipe × step-count relay 50→8→4) has no complete precedent but every component is covered — all three novelty axes downgraded to "partially supported" with narrowed claims; CoDMD (Wan team, concurrent, VBench 84.46 on the same setting) is the hard coordinate; naming must avoid "phased/progressive DMD"; load-bearing citations (CoDMD/GPD/Phased DMD/rCM) spot-verified online by planner.
 - ✅ 2026-07-06 T2 accepted (`research/T2_dmd2_component_neighbors.md`): component neighbors mapped (One-Forcing correction backfilled to T1). Planner code check corrected a premise: our discriminator is trainable multiscale MLP heads on **frozen teacher** features (LADD lineage) — T2's "live generator backbone combo" claim voided; surviving unique points: same-t-same-ε pairing (`gan_use_same_t_noise`, no ablation anywhere) and relay-stage TTUR/warmup gaps; FastGen has approximate R1 built in but disabled in all our runs.
 - 🟢 2026-07-06 T3 brief final (`research/T3_task_brief.md`): T1+T2 anchors and planner code-check verdicts injected; ready to dispatch; report target `research/T3_novelty_adjudication.md`.
-- 🟡 2026-07-06 T4 brief draft (`research/T4_task_brief.md`): awaiting T3 anchors and user milestone dates.
+- ✅ 2026-07-11 T3 consumed (`research/T3_novelty_adjudication.md`, delivered 2026-07-07; planner spot-verified lightx2v/TMD/upstream-config items during plan evaluation): axis A dead (TMD CVPR 2026 occupies t_list ablation); axis B narrowed to relay orchestration only (upstream FastGen publishes all single-stage hyperparameters); claim D upgraded ("papers and public implementations both lack the (t,ε) pairing ablation"); FastWan/CoDMD direct distillation makes the 50->4 control the thesis's life-or-death ablation. §6.1 backfill corrections pending (D0 checklist).
+- 🟡 T4 pivoted: deliverable is the thesis (defense ~2026-07-22); venue research deferred to post-defense arXiv/workshop decision.
+- 📋 2026-07-11 experiment plan rewritten as 11-day thesis sprint (`research/experiment_plan.md`): E0 quantification, E1a/E1b 2-arm direct baseline vs W5+W7 relay, E2a-c discriminator audit (+E2d gated), E5 probe; numbers freeze D8 (2026-07-19).
 - 📋 2026-07-06 experiment plan (`research/experiment_plan.md`): T1 suggestions adjudicated — P0 quantitative eval of existing checkpoints (VBench 6-dim + CD-FVD), P1a LR×batch de-confound, P1b 50→4 direct vs 50→8→4 control, P2 t_list shape matrix; execution scheduling owned by user.
 
 ## Workspace Split
@@ -55,14 +57,13 @@ For research planning, use this local read order:
 5. `CLAUDE.md`
 6. `agents/README.md`
 7. `experiments/README.md`
-8. `03-dmd-distillation/OVERVIEW.md`
-9. `03-dmd-distillation/HANDOFF.md`
-10. Current canonical context (updated 2026-07-07):
+8. Current canonical context (updated 2026-07-11):
     - `research/T0_project_analysis.md` (confirmed state correction + evidence grading)
     - `research/T1_video_fewstep_distillation_landscape.md`, `research/T2_dmd2_component_neighbors.md`
     - `reports/experiment-report-wan21-t2v-dmd2-progressive.md` (canonical experiment record)
     - `reports/2026-06-17-wan-dmd2-openvid-progress.md` (frozen June artifact index)
     - The five June literature reports were superseded by T1/T2 and archived at `archive/reports/literature-2026-06/` on 2026-07-07.
+    - The Wan2.2 line docs (OVERVIEW / HANDOFF / execution plan / helper scripts) were archived at `archive/wan22-ti2v-line/` on 2026-07-11.
 
 Use `archive/` only for background. Do not treat archived status as current without re-checking the server.
 

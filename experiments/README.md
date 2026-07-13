@@ -45,6 +45,20 @@ on the remote (`fastgen/configs/experiments/WanT2V/*.py`, one variable per exper
 Legacy: the Wan2.2 line's `wan22_*.env` configs are archived at `archive/scripts/wan22-env-configs/`
 and only run through the legacy `experiments/bin/run_remote.sh`.
 
+## Remote Three-Zone Workspace (since 2026-07-13)
+
+The remote now runs a conf-swapped layout (details in remote `FastGen/exp/README.md`):
+
+- `FastGen/exp/` — thin resident launchers (`run.sh`, `eval_sweep.sh`) + one conf + one python config per experiment (one changed variable each)
+- `FastGen/experiment/` — `INDEX.md` run index with key conclusions, per-experiment notes (`TEMPLATE.md`), auto-appended `LAUNCHES.log`
+- `FastGen/FASTGEN_OUTPUT/` — checkpoints / logs / inference per run (unchanged)
+
+Local one-line submission: `experiments/configs/wan21_sprint.env` drives `exp/run.sh`; switch experiments by editing only its `CONF=` line. Retired checkpoints and side runs were archived (mv, nothing deleted) to `/data/chenqingzhan/archive_pre_sprint_20260713/` on 2026-07-13 (~467G; kept runs retain `net_model`+`pth` for eval/relay).
+
+## Tools
+
+`experiments/tools/` holds server/data utilities salvaged from the early phase (server env setup, model/OpenVid download, WebDataset conversion). They are one-time setup helpers, not run entry points.
+
 ## Result Notes
 
 Use `experiments/results/README.md` as the template. A result note should be short enough to scan

@@ -109,3 +109,9 @@ GAN 侧(已核):gan_loss_weight_gen 0.03 / gan_use_same_t_noise True(同 t 同 �
 5. **P2:t_list 形状矩阵(6 档)**。均匀(负对照,W4 现成)/ σ=3 / σ=5(基线)/ σ=8(SGMD 默默在用)/ σ=12(断崖检验)/ 非嵌套 σ=5(relay 独家对照);第二因子 = 训练 t 采样 shift 与推理锚点解耦(TMD 证据)。
 6. 执行纪律:每条 run 走 `experiments/bin/run_remote_script.sh` 一行提交(先 check_remote,再 --dry-run);launch 前 GPU 预检 <100 MiB;结果注记当天落 `experiments/results/`。
 7. 条件项(等 T3/P0 结果再启):IDA(relay 阶段 fake score 冷启动)、Data-Forcing 式 post-training、判别头时空聚合升级、同 ε vs 独立 ε 消融——清单与依据见 `research/experiment_plan.md` Candidates 节。
+
+---
+
+> 计划更替注记(2026-07-11):本文件「下一阶段主线」一节的 P0-P2 阶梯已被取代——T3 终裁(轴 A 被 TMD 占据、上游 FastGen 公开全部单阶段配方、FastWan/CoDMD 直蒸成立)与答辩时间表(~2026-07-22)确定后,当前唯一有效计划为 `research/experiment_plan.md`(11 天冲刺版:E0 量化 / E1 两臂直蒸对照 / E2 判别器审计 / E5 探针,数字冻结 2026-07-19)。
+
+> 工作区注记(2026-07-13):远端已切换为三区结构——配置区 `FastGen/exp/`(薄启动脚本 + 每实验一个 conf/config)、记录区 `FastGen/experiment/`(INDEX.md 索引 + 逐实验详情)、日志区 `FASTGEN_OUTPUT/` 不变。存量清理:W1 六档全量 ckpt、各完结 run 的优化器/辅助网络分片、W6 全部 ckpt、wan_fdistill/wan_mf/cifar10、旧输出根共 ~467G 移入 `/data/chenqingzhan/archive_pre_sprint_20260713/`(只移不删);E0/接力所需档位保留 `net_model+pth`,接力初始化 `step8_lr_original/0002500` 已校验完好。冲刺五个 config(E1a/E1b/E2a/E2b/E2c)已建好并验证,启动方式:`bash exp/run.sh exp/confs/<X>.conf`。

@@ -11,9 +11,9 @@ Act as a research pipeline agent for Task 3 DMD distillation. The job is to make
 Read these first:
 
 1. `README.md`
-2. `experiments/README.md`
-3. `03-dmd-distillation/HANDOFF.md`
-4. `03-dmd-distillation/OVERVIEW.md`
+2. `reports/experiment-report-wan21-t2v-dmd2-progressive.md`
+3. `research/T0_project_analysis.md`
+4. `experiments/README.md`
 
 Then run a non-invasive server check before proposing or launching work:
 
@@ -56,7 +56,9 @@ Summarize your understanding and wait for user confirmation before writing resea
 ## Fast Handoff Prompt
 
 ```text
-Work in this repository. Read README.md, agents/README.md, experiments/README.md, 03-dmd-distillation/HANDOFF.md, and 03-dmd-distillation/OVERVIEW.md.
+Work in this repository. Read README.md, reports/experiment-report-wan21-t2v-dmd2-progressive.md, research/T0_project_analysis.md, and experiments/README.md.
+
+Core goal: distill Wan2.1-T2V-1.3B from 50-step generation to a high-quality 4-step student with DMD2, via staged step-count relay (50 -> 8 -> 4).
 
 Use ssh ust_ip. Before launching any experiment, run experiments/bin/check_remote.sh with experiments/configs/wan21_check.env. Use experiments/bin/run_remote_script.sh --dry-run first. Record logs, checkpoints, and a short result summary under experiments/results/, then update reports/experiment-report-wan21-t2v-dmd2-progressive.md.
 ```
