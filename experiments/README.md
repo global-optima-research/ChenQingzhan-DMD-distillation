@@ -59,6 +59,10 @@ Local one-line submission: `experiments/configs/wan21_sprint.env` drives `exp/ru
 
 `experiments/tools/` holds server/data utilities salvaged from the early phase (server env setup, model/OpenVid download, WebDataset conversion). They are one-time setup helpers, not run entry points.
 
+## Acceptance Log
+
+`experiments/results/acceptance-log.md` — planner's acceptance ledger: one row per accepted node (research reports, execution checkpoints, freezes) with the independent spot-check performed, verdict, and open watch items. Updated at every acceptance.
+
 ## Result Notes
 
 Use `experiments/results/README.md` as the template. A result note should be short enough to scan

@@ -5,6 +5,8 @@
 - 调研方式:8 路并行实时检索(consistency / distribution-matching / adversarial / trajectory-flow / progressive-staged / timestep-schedule / evaluation / 2025-26 增量)+ 5 篇精读(arXiv 原文全文)+ 3 条 novelty 轴对抗反证检索;共约 100 组检索串、60+ 篇原文页面逐一核实。检索串明细见第 4 节。
 - 结论定位:谱系级初判,终裁属 T3。
 
+> **T3 §6.1 回填更正(2026-07-14)。** 本报告以下结论经 T3 终裁修正,凡冲突以 T3 为准:(1) **轴 A 作废**——TMD(已确认 CVPR 2026)对 t_list 形状消融的覆盖远超本报告记录(Table 5 的 1/2-step + Table 11 的 3/4-step γ=5 vs γ=10 + App. B.2 高噪曲率准则 + App. A.2 确认 shift 作用于推理时间网格),"首次把锚点形状作显式变量"不成立,t_list 降级为配方说明;(2) **轴 B 被上游压缩**——lightx2v"两段式"疑云解除(单段 data-free 纯 DMD、无接力、无 1.3B 蒸馏产物),但上游 NVlabs/FastGen 已公开我方全部单阶段超参(t_list、GAN 0.03、判别层 15/22/29、CFG 5、TTUR 1:5、lr 1e-5),可主张机制面只剩 50→8→4 接力编排 + 8-step 中间阶段 + 跨阶段重置 + OpenVid 实例化;(3) venue 与载重数字批量更正见 T3 §6.1 第 6-7 条。
+
 ---
 
 ## 1. Executive Summary

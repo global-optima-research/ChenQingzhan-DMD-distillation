@@ -93,7 +93,7 @@
 
 - Teacher:冻结的预训练 video diffusion transformer(1.3B 参数,latent 空间 `[16, 21, 60, 104]`,对应 832x480、81 帧视频),推理基线为 50-step 采样、classifier-free guidance 5.0。
 - Student(generator):与 teacher 同架构;第一阶段从 teacher 权重起训,后一阶段(4-step)从前一阶段(8-step)student 的 checkpoint 初始化(仅生成网络权重,优化器与辅助网络重置)。Student 是 few-step 确定性(ODE 式)采样器,推理不用 CFG。
-- 辅助可训网络两个:(a) fake score network,与 teacher 同架构,在线拟合 student 生成分布的 score;(b) 判别器 = **冻结 teacher backbone 中间层(第 15/22/29 层)特征上的可训 multiscale MLP 头**(`multiscale_down_mlp_large`)。【更正 2026-07-06:经远端 `fastgen/methods/distribution_matching/dmd2.py` 代码核实,判别特征由冻结 teacher 的 forward 提取(fake 分支复用 VSD 的同一次 teacher forward,real 分支 `return_features_early` 截断),先前"生成器 backbone"的推测不成立,属 LADD / teacher-feature 谱系;另确认 `gan_use_same_t_noise=True` 时 real/fake 共享同一 t 与同一 ε(方法默认 False,属主动配置),FastGen 内置近似 R1(`gan_r1_reg_weight`)但我们全部 run 为 0.0 未启用。】
+- 辅助可训网络两个:(a) fake score network,与 teacher 同架构,在线拟合 student 生成分布的 score;(b) 判别器 = **冻结 teacher backbone 中间层(第 15/22/29 层)特征上的可训 multiscale MLP 头**(`multiscale_down_mlp_large`)。【更正 2026-07-06:经远端 `fastgen/methods/distribution_matching/dmd2.py` 代码核实,判别特征由冻结 teacher 的 forward 提取(fake 分支复用 VSD 的同一次 teacher forward,real 分支 `return_features_early` 截断),先前"生成器 backbone"的推测不成立,属 LADD / teacher-feature 谱系;另确认 `gan_use_same_t_noise=True` 时 real/fake 共享同一 t 与同一 ε(FastGen 方法基类默认 False,但上游 WanT2V 全部 15 个公开实验配置出厂即 True——是承袭的出厂值,非我方主动设计;2026-07-14 依 T3 §6.1 更正),FastGen 内置近似 R1(`gan_r1_reg_weight`)但我们全部 run 为 0.0 未启用。】
 
 **信号(什么信息、在线还是离线)**:
 

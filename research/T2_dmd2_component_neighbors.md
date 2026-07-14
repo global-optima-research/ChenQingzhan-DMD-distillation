@@ -5,6 +5,8 @@
 - 调研方式:4 路组件检索(multi-step DM 构造 / 蒸馏内锚点 / 判别器设计 / 训练稳定性)+ 5 篇精读(One-Forcing、Seaweed-APT、Few-Step SiD、SenseFlow、ADM/DMDX,与 T1 五篇零重复)。共约 60 组检索串、40+ 篇原文页核实;SenseFlow 精读含官方代码核对。检索词明细见第 4 节。
 - 结论定位:组件层初判,终裁属 T3。
 
+> **T3 §6.1 回填更正(2026-07-14)。** 以 T3 终裁为准:(1) **`gan_use_same_t_noise=True` 是上游 WanT2V 出厂值**(全部 15 个公开实验配置均 True),本报告 4.4 planner 注记"方法默认 False、我方主动配置 True"在配方层面误导——幸存主张 D 只能表述为"论文与公开实现均无该配对的单独消融",不得暗示设计为我方提出;(2) 全部单阶段超参(t_list、0.03、层 15/22/29、CFG 5、TTUR 1:5、lr 1e-5)均为 FastGen 上游公开配置,凡本报告列为我方机制/设计处一律以"沿用上游公开配置"为准;(3) 轴 C:"batch 单因素在视频 DMD 无先例"被 Data-Forcing(batch 16 vs 128 受控,视频)击破,幸存收窄为三因素联合受控 + per-anchor 更新量主打;(4) Self-Forcing 谱系 ε 精确化:判别器更新共享 t+ε、生成器侧仅共享 t。判别器宿主 = 冻结 teacher 的更正见下方 4.4 节注记(2026-07-06,仍有效)。
+
 ---
 
 ## 1. Executive Summary
