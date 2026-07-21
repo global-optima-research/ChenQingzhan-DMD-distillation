@@ -1,6 +1,6 @@
 # Wan2.1-T2V-1.3B DMD2 渐进式蒸馏实验记录
 
-Last updated: 2026-07-07
+Last updated: 2026-07-20
 
 本文件是当前主线(WanT2V step-count relay `50 -> 8 -> 4`)的**唯一正式实验记录**:只做目录、关键数据与结论。逐 run 详表进 `experiments/results/`,远端 artifact 为准。历史线(Wan2.2 TI2V 5B / WanI2V,2026-04/05)见 `03-dmd-distillation/HANDOFF.md`(已冻结)。研究侧证据分级与 novelty 红线见 `research/T0_project_analysis.md` 与 T1/T2 报告。
 
@@ -10,21 +10,25 @@ Last updated: 2026-07-07
 |---|---|---|---|---|
 | W1 | 已完成 | 4-step 基线 `..._global_8`(LR 1.25e-6 / batch 8 / 6000 iter) | 训练闭环通;肉眼最佳 ckpt `0001000`;10-prompt 速度 sweep:teacher 165.24s vs student 6.59-6.63s ≈ 25x(内部记录,引用前重读 metrics.csv) | 远端 `reports/eval_10prompts/` |
 | W2 | 已完成(artifact 不可复核) | 8-step 首训 `..._step8`(7 卡续训至 2530) | `0002500` 平均 13.16s、明显模糊差于 W1 `0001000`——仅本地 2026-06-17 索引记载,**远端目录已消失,不得作为已证明证据** | `reports/2026-06-17-wan-dmd2-openvid-progress.md` |
-| W3 | 已跑未评 | 8-step 消融 `..._step8_freq`(`student_update_freq=2`,LR 1.25e-6 / batch 10 / 1000 iter) | 推理样例在远端,**结论从未整理**;是"每锚点有效更新量"轴的现成数据点 | 待 P0 量化 |
-| W4 | 已跑未评 | 8-step 消融 `..._step8_normalize`(均匀 t_list,LR 1.25e-6 / batch 10 / 1500 iter) | 同上;是 t_list 形状矩阵(P2)的现成"均匀档" | 待 P0 量化 |
-| W5 | 已完成 | 8-step `..._step8_lr_original`(LR 1e-5 / batch 12 / 2500 iter) | 肉眼"进入可用";`0002500` 被选为 relay 初始化源 | 待 P0 量化 |
+| W3 | 已量化 | 8-step 消融 `..._step8_freq`(`student_update_freq=2`,LR 1.25e-6 / batch 10 / 1000 iter) | 近静态+噪声型退化(DD_q150 0.113 / imaging 0.395);短训低 LR 预期内,仅作轴 C 观察点 | 2026-07-14 E0 注记 |
+| W4 | 已量化 | 8-step 消融 `..._step8_normalize`(均匀 t_list,LR 1.25e-6 / batch 10 / 1500 iter) | **教科书级 mode collapse**:consistency 全表最高(0.975/0.979)但 imaging 0.256/div 0.462 全表最低——在本基座独立复现 TMD"均匀 t_list 致坍缩",是评估协议有效性的正面证据 | 同上 |
+| W5 | 已量化 | 8-step `..._step8_lr_original`(LR 1e-5 / batch 12 / 2500 iter) | `0002500` = relay 初始化源;量化:aes 0.559/img 0.657/div 0.595,8 步档部署备选 | 同上 |
 | W6 | 已完成 | 4-from-8 第一轮 `..._step4_from_step8_2p5k`(LR 1e-5 / batch 12 / 6 卡) | 肉眼:早期 `0000500` 最好、后期物理规则崩坏 | 待 P0 量化 |
-| W7 | 已完成 | 4-from-8 第二轮 `..._step4_from_step8_8node`(LR 5e-6 / batch 16 / 8 卡) | 肉眼:可用且 `0000500 -> 0002500` 随 iter 提升;**与 W6 之间 LR/batch/GPU 三因素同时变化,改善归因不成立** | eval-10 样例已在远端;待 P0 量化 |
+| W7 | 已完成+已量化 | 4-from-8 第二轮 `..._step4_from_step8_8node`(LR 5e-6 / batch 16 / 8 卡) | 量化推翻肉眼记录:aesthetic 随 iter **单调下降**,best-of-sweep 在 @500-@1000(非肉眼 @2500);与 W6 三因素混淆仍在 | E0 全量化,见 2026-07-14 注记 |
+| E1a | 已完成+已量化 | 直蒸对照 A 臂 `sprint_e1a_direct50to4_lr5e6_b16`(= W7 配方,50→4,5000 iter,teacher 起训) | **G2 冠军档 @1000:imaging 0.717(超 relay 与 teacher)、div 0.635(超 relay 两档)**;训练一次 iter-500 保存 hang(近满盘瞬态),重启后完整跑完 | 2026-07-20 G2 注记 |
+| E1b | 已完成+已量化 | 直蒸对照 B 臂 `sprint_e1b_direct50to4_lr1e5_b12`(= W5 阶段配方,50→4,5000 iter) | 冠军档 @500:img 0.695/div 0.628;aes 偏低(0.532)显示激进 LR 上限——bracket 有效 | 同上 |
 
 旁线(未评估,论文 baseline 候选):`wan_fdistill`(2026-06-09~12)、`wan_mf`(2026-06-12);ladd/causvid 等 smoke config 存在未跑全。
 
 ## 当前状态(每阶段更新)
 
-- 阶段(2026-07-07):训练全部停止(8 卡空闲自 2026-06-25);研究侧 T0-T2 已验收,T3(novelty 终裁 + Wan 生态竞品)已分发。
-- 最大缺口:**全部质量结论为肉眼判断,零量化指标**;W6→W7 归因混淆未解。
-- 当前最佳(肉眼口径):W7 的 `0002500`(4-step,relay 自 W5 `0002500`)。
-- 竞品坐标:CoDMD(Wan 官方团队,concurrent,同基座同步数)VBench Total 84.46——我们 4-step 结果量化后需落在 83-85 区间才有竞争力。
-- 下一步 = P0(现有 checkpoint 量化评估),见「下一阶段主线」。
+- 阶段(2026-07-20):E0 量化 + E1a/E1b 直蒸对照全部完成;**G2 已裁决**(用户 2026-07-20)。里程碑:汇报 07-28、最终论文 07-31。
+- **当前最佳(量化口径,best-of-sweep)**:直蒸 E1a `0001000`(imaging 0.717/div 0.635/DD_clean 0.75/aes 0.567)。relay 代表档 = W7 `0001000`。checkpoint 选择一律 best-of-sweep,肉眼档弃用(G1 裁定)。
+- **G2 结论(Ch2 定调)**:匹配配方与预算下,step-count relay 质量不优于直蒸、多样性劣于直蒸(两直蒸臂 div 0.628-0.635 > relay 0.598-0.613,独立同向)——负结果如实报;卖点 = 本基座首个受控 relay-vs-direct 对照(GPD/CoDMD/FastWan 均未做)。
+- **退化定性(评估协议贡献)**:少步退化 = 跨 seed 多样性坍缩(teacher 0.732 → 学生 0.60-0.65),**非**动态度坍缩(dm40 干净 DD:学生 0.75-1.0 ≥ teacher 0.625;smooth 0.97+ 排除抖动)。DD 口径:dm40 DD_clean 可引用,q150-DD 降脚注相对读。
+- 竞品坐标:CoDMD 84.46 等 full-VBench 数字只作文献坐标,协议差异必须脚注(禁 SOTA 对比,T3 红线 8)。full VBench 排 E1a@1000 + W7@1000 两模型(946×5,待 GPU/时机)。
+- 进行中(2026-07-20 夜):冠军档+teacher 换 seed 重测(n=1→n=3);RAFT 连续光流列。待做:E2 判别器审计三臂(等 8 卡)、E5 探针。
+- 节点自 2026-07-20 起与他人共享(对方持 6 卡,我方 GPU 1/3);磁盘清理后余 1.2T(<90% 不可达:他人占 ~18T)。
 
 ## 通用路径
 
