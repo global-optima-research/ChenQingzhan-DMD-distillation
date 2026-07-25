@@ -18,6 +18,8 @@
 
 | 9 | 2026-07-20 | **G2 定稿表(32 行零缺格)** | ✅(裁决案已呈用户) | 直读远端 `G2_table.txt`/`E0_quant.md` 逐格核对:(a) imaging 优势**强于执行所报**——E1a 连续 5 档(@1000-@3000 中五档 ≥0.7065)全部高于 relay 全 sweep 最佳 0.6971,峰值 0.7235@2000,非单点 0.020;(b) 多样性 0.628-0.635 vs relay 0.598-0.613 ✓(8-seed,最稳轴);(c) DD_clean 全臂 ≥ teacher 0.625 无坍缩 ✓,**但执行淡化了 E1a 的 DD_clean 0.75-0.78 明显低于 W7/E1b 的 0.95-1.0**——不翻裁决(E1b 直蒸臂以 0.975 DD + 更高多样性同样压 relay),但 Ch2 必须如实写;(d) aesthetic 判平 ✓(W7@500 0.5768 vs E1a@1000 0.5665,差 0.010 噪声带) | 两条写作红线随裁决下发:E1a 低动态注记;imaging 超 teacher(0.7235 vs 0.6918)大概率锐度偏置,与 consistency 静态偏置同类,**禁写"学生质量超越 teacher"**;②换 seed 重测转非阻塞附录项(GPU 1/3 即可跑,不等裁决) | `experiments/results/2026-07-20-g2-relay-vs-direct-final.md`;远端 `G2_table.txt` |
 
+| 10 | 2026-07-21 | 执行节点:接续中断会话——E2a 门控 v2 换装(P0)+ vb946 盘点(P1)+ 四项文档回填(P2) | ✅ | ssh 独立抽查:v2 diff 逐行核对 = 仅三处声明改动(10 次重试 → deadline-while 至 07-22 09:00、重试间隔 60s→120s);新门控 PID 4096392 存活、marker 17:52:30 进入 waiting、旧门控(3488767)已消失;e1a 5 set × 946 全齐,w7 s0/s3 在飞(923/873 @18:33)与汇报自洽;vb946 目录无残留软链;GPU 占用者独立定位:GPU3 = qiuzhangxizi 单卡训练 `train_multicls_ref_adapter_v2`(16:15 起,与 13:06 打挂 w7-s0 的 27.9G 足迹同源),GPU0/2/4/5 = songrun 的 sglang 常驻服务(TP2×2,已跑 26h),GPU7 已释放;本地抽查:README 里程碑 / canonical 当前状态 / Ch2 合并(发现 1 n=3 版 + 发现 5)/ 新注记 四项均落盘 | ⏳ rename-watcher(PID 1948635)pgrep 显示命令串疑无换行分隔,队列退出(~18:50)后必须核 `reports/vb946/RENAME_DONE.txt` + rename_e1a/w7.log,失败则手动重跑 `vb946_rename.py`(幂等);⏳ E2a first-health:4/rank 显存 30/32G 边缘,OOM 即上报,**禁止擅改 batch/配方**;⏳ GPU3 协调 = 用户线下动作(对象 qiuzhangxizi);排期已裁(用户 07-21):E2a 优先,vb946 打分让路,full-VBench 数字 deadline 07-26 晚 | `experiments/results/2026-07-21-vb946-launch-gpu3-e2a-gate.md` |
+
 ## 待验收队列(计划停点)
 
 | 预计日期 | 节点 | 验收要点 | 谁拍板 |
@@ -28,3 +30,5 @@
 | 07-20 晚 | E2 处置决定(甲:今晚发缩短 E2b / 乙:Ch3 转观察性证据) | 取决于答辩确切时间(待用户回答) | **用户** |
 | 07-20 晚 → 07-21 早 | full VBench(G2 加冕模型,唯一一次) | 与 CoDMD 84.46 同表的对外数字;顺利则补第二名 | planner |
 | 07-21 | 数字冻结 + 全部开放关注项闭环;(若甲)E2b 收 + 对照数字入 slides/附录 | 表格完整性;E1a 重启条目核对 | planner + 用户 |
+
+> 队列更新(2026-07-21,#10 验收时):07-20 下午 G2 已由用户裁决(#9);07-20 晚 E2 处置在新时间表(07-28/07-31)下改为 Plan A 并已获批(E2a GAN=0 四卡门控自启);full VBench 生成 in-flight、打分让路 E2a(用户 07-21 裁)。新停点:07-22 早 E2a 起训健康验收(若 09:00 门控超时 → 用户协调 GPU3);~07-24 E2a 完训验收 + vb946 打分上卡(16 维 × 2 模型,协议差异逐维脚注),数字硬 deadline 07-26 晚;07-26/27 数字冻结,E2b/E2c 缩短版与 E5 视剩余窗口取舍。

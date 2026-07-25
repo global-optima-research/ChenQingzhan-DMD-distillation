@@ -4,7 +4,7 @@ Core goal: distill the 50-step `Wan2.1-T2V-1.3B` teacher into a **high-quality 4
 
 ## Current State (2026-07-13)
 
-- Milestones: thesis defense 2026-07-21; final thesis submission 2026-07-31.
+- Milestones: progress report 2026-07-28; final thesis submission 2026-07-31 (updated 2026-07-21; the earlier 07-21 defense date is obsolete).
 - Canonical experiment record: `reports/experiment-report-wan21-t2v-dmd2-progressive.md` — runs W1-W7; all quality conclusions are still visual-only, quantitative evaluation (E0) is the next step.
 - Verified facts and evidence grading: `research/T0_project_analysis.md`.
 - Research pipeline: T0-T3 accepted (T3 novelty adjudication governs claim wording); T4 pivoted to the thesis itself; paper-mainline candidate gated on E5 + GAN-0 results (`research/idea_mainline_candidate.md`).
