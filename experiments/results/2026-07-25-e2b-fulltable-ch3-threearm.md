@@ -40,4 +40,4 @@
 
 ## 效度注
 
-- E2b/E2a sweep 质量维 n=1 seed(E2a 冠军档已 n=3;E2b 冠军档换 seed 待排);flow 为 seed0 单点(臂间方向与 E2a/W7 多 seed 经验一致);q150-DD 仅脚注级。GAN 效应=0.03 权重单点,不外推其它权重。
+- E2b/E2a sweep 质量维 n=1 seed(两臂冠军档均已 n=3);**flow 纪律(Ch2 同款,Ch3 初稿必须遵守)**:E2a/E2b sweep 的 flow 为 seed0 单点——**臂间方向与 sweep 内走势可引(与 Ch2 四 seed 配对经验同向),单点绝对幅度与百分比不作主张**;q150-DD 仅脚注级。GAN 效应=0.03 权重单点,不外推其它权重。E5 引用一律以 `research/E5_probe_results.md` 修正口径为准(悬崖式 t 依赖;层间排序经 FD,弃用早期均值口径)。
