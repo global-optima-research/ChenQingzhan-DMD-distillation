@@ -110,7 +110,7 @@
 | A3 | P4 可选角 | W7@1000 vs E1a@1000 同 prompt 各 1 条(动态差异明显的 prompt,可按 flow 逐条数据挑差值最大者) | vb946 flat 目录(`reports/vb946/w7_flat`、`e1a_flat`,文件名即 prompt,已验证存在) | 无需(vb946 全集在) |
 | A4 | 备用 | E2a@2000 vs W7@1000 同 prompt 各 1 条(备问卡 #3/#7 演示用) | vb946 flat(e2a_flat 已建) | 无需 |
 
-执行注意:①拉取前先 `ls`+`md5` 抽验 1 条可播;②A2 若 d40 源已清理,重生成时 teacher 用与原 d40 相同 prompt 与 seed 0–7(prompt 集 md5 b4c1f9e3 对应文件在 exp/eval/);③全部素材本地转 H.264 MP4(PPT 内嵌兼容);④点击播放在 PPT 内用"插入视频 + 单击播放"即可,无需外部工具。
+执行注意:⓪ **prompt 选择先排除动物类**(dog/cat/horse/bird/fish/bear 等关键词正则过滤;少步模型动物关节运动物理表现普遍差,演示素材一律避开;人物动作类不排除,风景/街景/物体类优先;若数据最优 prompt 为动物类,顺位取下一个非动物者并在 MANIFEST 注明——用户裁定 2026-07-27);①拉取前先 `ls`+`md5` 抽验 1 条可播;②A2 若 d40 源已清理,重生成时 teacher 用与原 d40 相同 prompt 与 seed 0–7(prompt 集 md5 b4c1f9e3 对应文件在 exp/eval/);③全部素材本地转 H.264 MP4(PPT 内嵌兼容);④点击播放在 PPT 内用"插入视频 + 单击播放"即可,无需外部工具。
 
 ---
 
