@@ -3,6 +3,7 @@
 > 用法:每页 = 一句主张(可直接做页标题/讲稿第一句)+ 承载表格/图 + 数字出处文件名。数字待 2026-07-27 晚冻结;做 slides 时逐数字对出处文件复核,不引本大纲的转述。
 > 总定调(用户裁定,2026-07-21):**避免全负叙事——按轴"各有所长"陈述;三臂审计写成"归因"而非"没用"**。全局红线:方法名只用"步数接力 / step-count relay";禁写任何"学生超越 teacher";checkpoint 一律 best-of-sweep 口径;q150 / dm40 / vb946 三域数字不跨表混引。
 > 故事弧(六幕):问题与加速 → 肉眼被量化推翻(方法论)→ G2 受控对照(负结果 + 各有所长)→ 三臂审计四条归因 + E5 → full-VBench 四行表 → limitation 与 future work。
+> 版本:07-28 现场默认走文末「10 分钟版(8 页正片 + 6 备页)」;下方 16 页 20 分钟版保留不删——现场时间放宽或 07-31 后论文答辩时用它作底稿。
 
 ---
 
@@ -125,4 +126,68 @@
 
 ## 时间提示
 
-16 页按 20 分钟汇报配:第一幕 3 min / 第二幕 4 min / 第三幕 5 min / 第四幕 5 min / 第五、六幕 3 min。若压缩到 12 页:P3 并入 P2,P5 并入 P4,P9 并入 P8,P13 并入 P12(保四条归因完整)。
+16 页按 20 分钟汇报配:第一幕 3 min / 第二幕 4 min / 第三幕 5 min / 第四幕 5 min / 第五、六幕 3 min。若压缩到 12 页:P3 并入 P2,P5 并入 P4,P9 并入 P8,P13 并入 P12(保四条归因完整)。(注:现场方案以下节「10 分钟版」为准,本段 12 页压缩建议由其取代;本 16 页版保留作底稿。)
+
+---
+
+## 10 分钟版(8 页正片 + 6 备页;planner 方案,2026-07-26)
+
+> 纪律:本节只重组上文页面结构,**不新增、不改动任何数字**;每页素材(表格/数字/红线)以对应原页为准,冲突时以原页文本为准。8 页合计 560s(≈9 分 20 秒),留约 40s 缓冲。**84.47/84.46 巧合不入正片,仅留备问卡 #6**;QS 计算整体走备页 B4。
+
+### P1'|封面 + 一句话总结(30s;= 原 P1)
+- **主张**:把 Wan2.1-T2V-1.3B 从 50 步蒸到 4 步(165s → 6.6s,≈25×),并用受控实验回答两个问题:步数接力是否必要(否,多样性反而更差),判别器分支对哪些现象负责(四条归因)。
+- **承载**:一行时间线(2026-06 配方期 → 07-14 G1 量化 → 07-20 G2 裁决 → 07-22~25 三臂审计 → 07-26 收口)。
+- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(当前状态节)。
+
+### P2'|任务、加速与配方(45s;= 原 P2 + P3)
+- **主张**:50-step teacher(CFG=5,≈100 NFE)→ 4-step 学生(无 CFG,4 NFE),单条 480p×81 帧 165.24s → 6.59–6.66s,≈25×,与 NFE 比一致;全部单阶段配方承自 NVIDIA FastGen 公开 WanT2V 配置,我们的贡献在训练日程层——50→8→4 步数接力(仅继承 8-step 最优档生成器,优化器/fake score/判别器全重置)。
+- **承载**:速度对照表(2 行)+ 接力示意图(50→8→4,标"继承什么/重置什么");上游关系一句话(原文整段走备页 B6)。
+- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(W1 节;速度已于 2026-07-26 直读远端 `metrics.csv` 复核)、`research/thesis_ch1_draft.md` §1.2。
+- **红线**:禁 phased/progressive DMD;禁把单阶段超参说成我方设计;速度数字标复核出处。
+
+### P3'|方法论转折:肉眼被量化推翻 + W4 阳性对照(90s;= 原 P4 + P5)
+- **主张**:两条训练线的肉眼最佳档都被量化推翻——W7 aesthetic 单调下降 0.577→0.538(量化最优 @500–@1000,非肉眼 @2500),W1 量化 @1500 在 5/6 质量维反超肉眼 @1000——全文改为 best-of-sweep + 早停;W4(均匀 t_list)consistency 全表最高(subject 0.9745/bg 0.9791)而 imaging 0.256/DD 0.187/diversity 0.462 全表最低——只看 consistency 会把坍缩模型判成最优,我们的 DD/多样性维抓到了它。
+- **承载**:W7 五档 aes 列(高亮单调下降)+ W1 @1000 vs @1500 两行对照 + W4 vs teacher 缩略行;评估协议一览走备页 B1。
+- **出处**:`experiments/results/2026-07-14-e0-full-table-g1.md`(全表 + 背离 1 + 消融数据点节)。
+- **红线**:不 claim t_list 消融首创(TMD 占据);学生高 consistency ≠ 质量优势,必须与 DD/diversity 联读。
+- **备注**:口头埋钩子"质量普遍 @500–1000 见顶后回落、全臂同构"——P6' 回收。
+
+### P4'|G2 受控对照:设计 + 主表(120s;= 原 P7 + P8)
+- **主张**:接力臂(W5 2500 + W7 2500)vs 两条直蒸臂(E1a = W7 配方、E1b = W5 配方,各 5000 iter),匹配预算/数据/t_list/评估协议,双臂 bracket 令"直蒸没调好"的质疑失效;结果:质量判平或直蒸略优(imaging E1a 0.717 为学生最高,aes n=3 带重叠判平),多样性两条直蒸臂(0.635/0.628)双双高于接力两档(0.598/0.613),独立同向——负结果如实报。
+- **承载**:G2 冠军档对照表(teacher/E1a/W7×2/E1b/W1 × aes/imaging/DD_clean/diversity);设计不变量一行带过(细节走备页 B3)。
+- **出处**:`experiments/results/2026-07-20-g2-relay-vs-direct-final.md`;n=3 置信带见 `research/thesis_ch2_draft.md` 发现 1。
+- **红线**:E1a imaging 0.717 > teacher 0.692 禁写"超越 teacher"(锐度/静态偏置口径);E1a 的 DD_clean 0.75 低于 W7/E1b 的 0.95–1.0 须如实提;不宣称直蒸首创。
+- **落点句(固定)**:"该基座首个受控对照 + 接力臂确有一个真实差异(下页)。"
+
+### P5'|接力的真实差异与退化图景(50s;= 原 P9 + P10)
+- **主张**:接力唯一稳定的实测差异是运动幅值——RAFT 光流 W7 > E1a 在 4/4 seed 同向(中位均值 3.36 vs 1.81,≈1.9×),W7 > teacher 4/4;评价随准则而异(贴近 teacher 分布 vs 最大化动态),本文不选边。把全部轴摆开:退化 = 跨 seed 多样性坍缩(teacher 0.732 → 学生 0.59–0.64),而非动态度坍缩(全部学生 DD_clean 0.75–1.0 ≥ teacher 0.625,motion-smooth 0.97+ 真运动非抖动,"未复现"文献担心的少步动态坍缩)。
+- **承载**:flow 4-seed 方向小表(全表走备页 B5)+ DD_clean/diversity 双列条形图。
+- **出处**:`experiments/results/2026-07-23-flow-multiseed-e1b946-e2a-eval.md` §1/§4、`research/thesis_ch2_draft.md` 发现 5、`experiments/results/2026-07-14-e0-full-table-g1.md`(dm40 结论节)。
+- **红线**:臂间方向可引(4/4 同向),单 seed 绝对百分比(+61%/−22%)禁止单独引用;E1a 相对 teacher 表述为"不高于(3/4 同向)";"未复现"≠"反驳"(Data-Forcing 是 Cosmos I2V);二值 DD 掩盖该差异(引连续光流的理由,顺带答"为什么加 RAFT")。
+
+### P6'|三臂审计:两次单变量手术 → 四条归因(120s;= 原 P11 + P12)
+- **主张**:在 W7(配对 GAN)配方上各改一个字段——E2a 仅 `gan_loss_weight_gen 0.03→0`,E2b 仅 `gan_use_same_t_noise True→False`(config.yaml 逐值核对,E2a checkpoint 无判别器分片)。四条归因:①运动幅值 = relay 初始化 × GAN 分支交互(E2a 关 GAN 衰减回 teacher 级 2.1–2.7,E2b 开 GAN 重建 2.40→4.71,E1a 直蒸开 GAN 仍低——单独任一均不足);②质量维与 GAN 反向(E2a 随 iter 改善 0.591→0.611/0.701→0.723,GAN-on 臂随 iter 退化)——"早峰后滑"获候选机制归因(回收 P3' 钩子);③ (t,ε) 配对惯例不敏感(同档差 0.01 级、全维走势同构)——Claim D 首个受控消融的如实答案;④多样性对判别器不敏感(三臂 0.586–0.613 均低于 E1a 0.635)——坍缩归蒸馏本身。
+- **承载**:三臂差异表(1 行/臂)+ E2a/E2b 五档 sweep 缩略(aes/flow 两列)+ 四归因要点框;E5 机制背景走备页 B2。
+- **出处**:`experiments/results/2026-07-24-e2a-fulltable-ch3.md`、`experiments/results/2026-07-25-e2b-fulltable-ch3-threearm.md`、`experiments/results/acceptance-log.md` #11。
+- **红线**:禁写"GAN 必然抬运动"(E1a 反例);E2a aes 0.613 > teacher 0.590 禁写"超越 teacher";0.03 与 same_t_noise=True 均为上游出厂值(消融的是上游默认设计);归因≠"判别器没用"。
+
+### P7'|full-VBench 12 维四行表:按轴各有所长(60s;= 原 P14)
+- **主张**:E1a(G2 加冕)赢一致性/平滑/闪烁类,W7 赢动态度(0.911)与语义动作类(human_action 0.794/scene 0.292),E1b 居中,E2a(审计臂,GAN=0,仅 @2000 单档)静态画质最高(aes 0.6482/imaging 0.6924)且动态不塌(0.80)——与 q150 域三臂结论跨域同向;多样性上界仍属 teacher(0.732,q150 域)。
+- **承载**:12 维 × 4 模型主表(高亮各列第一);表脚注声明 Semantic/Total 因 GRiT 4 维缺失不可算、temporal_flickering 协议偏差。**QS 合成值与权重结构不入正片,走备页 B4**(被问到再出,配合备问卡 #6)。
+- **出处**:`experiments/results/2026-07-26-e2a-vb946-fourth-row.md`。
+- **红线**:加冕叙事按 G2 预注册结果 = E1a@1000(非 cherry-pick);E2a 行标注"审计臂(GAN=0),仅 @2000 单档";禁写"超越 teacher";dynamic_degree 两域数字(q150 0.567 / vb946 0.800)不混引;**84.47/84.46 巧合仅留备问卡 #6,不入正片**。
+
+### P8'|贡献与缺口(45s;= 原 P15 + P16)
+- **主张**:四点贡献——①25× 加速的 4-step 学生 + 完整链路(上游复用声明);②该基座上首个受控 relay-vs-direct 对照(负结果如实报 + mixed finding);③判别器审计四条归因(含 Claim D:(t,ε) 配对惯例首个受控消融,答案 = 不敏感);④compute-light 退化审计协议(肉眼不可靠 → best-of-sweep;退化 = 多样性坍缩而非动态坍缩;W4 阳性对照)。缺口如实列:无人评;GRiT 4 维缺失(Semantic/Total 不可算);E2c 受单卡 32G 显存限制未测(校准值 0.75 留档,80G 可复现);单基座/单数据/单规模。
+- **承载**:左栏贡献四框(标证据页码 P4'/P5'/P6'/P3')+ 右栏缺口清单。
+- **出处**:`research/T3_novelty_adjudication.md` §4.1、`experiments/results/2026-07-25-e2b-fulltable-ch3-threearm.md`(E2c 节)、`experiments/results/acceptance-log.md` #11。
+- **红线**:每条"首个/首次"带"据我们所知 + 检索覆盖"限定;不 claim 直蒸首创、不 claim 退化模式分类首创。
+
+### 备页 6 张(B1–B6,按用户指定范围)
+
+- **B1|评估协议四件套 + 主表协议**(= 原 P6 全页):q150 六维(冠军档 n=3)/ dm40 清洁 DD(teacher 两域 DD 0.300 vs 0.625 的混淆证据)/ d40×8 LPIPS / RAFT flow(中位主读 + 均值并报);md5 与口径规则。出处:`research/thesis_ch1_draft.md` §1.7、`research/STATUS_2026-07-20.md` §2。
+- **B2|E5 层×t 探针**(= 原 P13 全页):悬崖式 t 依赖(t ≤ 0.937 全层 AUC=1.0,t=0.999 全层 0.28–0.52);上游选层 {15,22,29} 合理但探针无法裁"唯一最优";teachergen 诚实对照(可分性≠蒸馏退化度量)。红线:非 headline,"to our knowledge" 级。出处:`research/E5_probe_results.md`。
+- **B3|G2 设计细节**(原 P7 承载展开):三臂时间轴、不变量清单、双臂 bracket 逻辑、best-of-sweep 选点、预注册领先假设。出处:`research/thesis_ch2_draft.md` §2.1。
+- **B4|Quality Score 合成**(原 P14 红线展开):官方权重结构(min-max 归一化、DD 权重 0.5、分母 6.5;出处 Vchitect/VBench `scripts/constant.py`+`scripts/cal_final_score.py`@master);四行合成值 **E2a@2000 85.50 / W7@1000 84.47 / E1b@500 83.62 / E1a@1000 82.80**;E1a(加冕臂)最低的解释 = DD 维(0.581,权重 0.5)拖低、其优势维归一化后区分度小;加冕依据是 G2 预注册协议(q150 六维 + 多样性),QS 为补充参考——"单一合成分掩盖轴间取舍"的实例。红线:绝不与 CoDMD 84.46 同页并列(7 维 Quality vs 16 维 Total),被问按备问卡 #6 答。出处:`experiments/results/2026-07-26-e2a-vb946-fourth-row.md`(QS 节)。
+- **B5|flow 多 seed 全表**(原 P10 承载展开):s0–s3 × W7/E1a 配对表 + teacher 4-seed。红线:单 seed 绝对百分比禁引;E1a 相对 teacher"不高于(3/4 同向)"。出处:`experiments/results/2026-07-23-flow-multiseed-e1b946-e2a-eval.md` §1/§4。
+- **B6|上游关系原文**(T3 §6.2 整段引文页):供被问"你们与 FastGen 什么关系/哪些是你们做的"时直接出示。出处:`research/T3_novelty_adjudication.md` §6.2(同文引用于 `research/thesis_ch1_draft.md` §1.2)。
