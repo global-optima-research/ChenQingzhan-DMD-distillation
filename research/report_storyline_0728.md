@@ -16,7 +16,7 @@
 ### P2|任务与加速:25× 来自步数与 CFG 的删减
 - **主张**:50-step teacher(CFG=5,≈100 NFE)→ 4-step 学生(无 CFG,4 NFE),单条 480p×81 帧 165.24s → 6.59–6.63s,≈25×,与 NFE 比一致。
 - **承载**:速度对照表(2 行:teacher/学生 × 步数/CFG/NFE/时延);可配 1 组同 prompt 对照帧。
-- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(W1 节;速度为 2026-06-15 内部记录,冻结前重读远端 `metrics.csv`)。
+- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(W1 节;速度已于 2026-07-26 直读远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` 复核:teacher 165.24 精确一致,student 全 sweep 6.591-6.656、speedup 24.83-25.07×;上限 0.026s 勘误待 planner 裁)。
 - **红线**:速度数字标内部记录出处。
 
 ### P3|方法与配方:上游复用 + 训练日程层贡献
@@ -97,7 +97,7 @@
 - **主张**:E1a(G2 加冕)赢一致性/平滑/闪烁类,W7 赢动态度(0.911)与语义动作类(human_action 0.794/scene 0.292),E1b 居中,E2a(审计臂,GAN=0,仅 @2000 单档)静态画质最高(aes 0.6482/imaging 0.6924)且动态不塌(0.80)——与 q150 域三臂结论跨域同向;多样性上界仍属 teacher(0.732,q150 域)。
 - **承载**:12 维 × 4 模型主表(高亮各列第一)。
 - **出处**:`experiments/results/2026-07-26-e2a-vb946-fourth-row.md`。
-- **红线**:加冕叙事按 G2 预注册结果 = E1a@1000(非 cherry-pick);E2a 行标注"审计臂(GAN=0),仅 @2000 单档";Quality Score 7 维可按官方权重合成、Semantic/Total 因 GRiT 4 维缺失不可算(表脚注声明);temporal_flickering 5 样本 vs 官方 25 样本脚注;若同页出现 CoDMD 84.46 等文献数字,必须脚注协议差异、禁 SOTA 对比;dynamic_degree 两域数字(q150 0.567 / vb946 0.800)不混引。
+- **红线**:加冕叙事按 G2 预注册结果 = E1a@1000(非 cherry-pick);E2a 行标注"审计臂(GAN=0),仅 @2000 单档";Quality Score 已按官方权重合成(出处 Vchitect/VBench `scripts/constant.py`+`scripts/cal_final_score.py`@master:min-max 归一化、DD 权重 0.5、分母 6.5):**E2a@2000 85.50 / W7@1000 84.47 / E1b@500 83.62 / E1a@1000 82.80**——E1a(加冕臂)因 DD 维(0.581,权重 0.5)合成分最低,页面须并列解释权重结构且重申加冕依据是 G2 预注册协议(q150 六维+多样性)而非该合成分;Semantic/Total 因 GRiT 4 维缺失不可算(表脚注声明);**警惕:W7 的 84.47 与 CoDMD 文献值 84.46 数字巧合近同,但前者为 7 维 Quality Score、后者为 16 维 Total,绝对禁止并列比较**;temporal_flickering 官方为专属子集 25 样本/prompt + static_filter 预筛(出处 `prompts/README.md`@master),我们 5 样本未筛,脚注;若同页出现 CoDMD 84.46 等文献数字,必须脚注协议差异、禁 SOTA 对比;dynamic_degree 两域数字(q150 0.567 / vb946 0.800)不混引。
 
 ## 第六幕:limitation 与 future work
 

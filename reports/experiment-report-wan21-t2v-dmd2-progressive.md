@@ -8,7 +8,7 @@ Last updated: 2026-07-20
 
 | ID | 状态 | 实验(远端 run 目录名后缀) | 关键结论 | 详表 |
 |---|---|---|---|---|
-| W1 | 已完成 | 4-step 基线 `..._global_8`(LR 1.25e-6 / batch 8 / 6000 iter) | 训练闭环通;肉眼最佳 ckpt `0001000`;10-prompt 速度 sweep:teacher 165.24s vs student 6.59-6.63s ≈ 25x(内部记录,引用前重读 metrics.csv) | 远端 `reports/eval_10prompts/` |
+| W1 | 已完成 | 4-step 基线 `..._global_8`(LR 1.25e-6 / batch 8 / 6000 iter) | 训练闭环通;肉眼最佳 ckpt `0001000`;10-prompt 速度 sweep:teacher 165.24s vs student 6.59-6.63s ≈ 25x(**已复核 2026-07-26,直读远端 metrics.csv**:teacher 165.24 精确一致;student 全 sweep 实读 6.591-6.656、speedup 24.83-25.07x——上限 6.63→6.656 有 0.026s 出入,是否改写为 6.59-6.66 待 planner 裁) | 远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` |
 | W2 | 已完成(artifact 不可复核) | 8-step 首训 `..._step8`(7 卡续训至 2530) | `0002500` 平均 13.16s、明显模糊差于 W1 `0001000`——仅本地 2026-06-17 索引记载,**远端目录已消失,不得作为已证明证据** | `reports/2026-06-17-wan-dmd2-openvid-progress.md` |
 | W3 | 已量化 | 8-step 消融 `..._step8_freq`(`student_update_freq=2`,LR 1.25e-6 / batch 10 / 1000 iter) | 近静态+噪声型退化(DD_q150 0.113 / imaging 0.395);短训低 LR 预期内,仅作轴 C 观察点 | 2026-07-14 E0 注记 |
 | W4 | 已量化 | 8-step 消融 `..._step8_normalize`(均匀 t_list,LR 1.25e-6 / batch 10 / 1500 iter) | **教科书级 mode collapse**:consistency 全表最高(0.975/0.979)但 imaging 0.256/div 0.462 全表最低——在本基座独立复现 TMD"均匀 t_list 致坍缩",是评估协议有效性的正面证据 | 同上 |
@@ -25,10 +25,10 @@ Last updated: 2026-07-20
 - 阶段(2026-07-21):E0 量化 + E1a/E1b 直蒸对照完成,**G2 已裁决**(用户 2026-07-20);n=3 置信带与 RAFT 连续光流回填**已完成并并入 Ch2 草稿**(发现 5:运动幅值为接力唯一实测差异,W7 +61% vs E1a −22% 相对 teacher,mixed finding,总裁定不变);full VBench(946×5)生成 in-flight;**E2a(判别器审计第一臂,Plan A)已获批**,服务器端门控待发。里程碑:汇报 07-28、最终论文 07-31。
 - **当前最佳(量化口径,best-of-sweep)**:直蒸 E1a `0001000`(imaging 0.717/div 0.635/DD_clean 0.75/aes 0.567)。relay 代表档 = W7 `0001000`。checkpoint 选择一律 best-of-sweep,肉眼档弃用(G1 裁定)。
 - **G2 结论(Ch2 定调)**:匹配配方与预算下,step-count relay 质量不优于直蒸、多样性劣于直蒸(两直蒸臂 div 0.628-0.635 > relay 0.598-0.613,独立同向)——负结果如实报;卖点 = 本基座首个受控 relay-vs-direct 对照(GPD/CoDMD/FastWan 均未做)。
-- **退化定性(评估协议贡献)**:少步退化 = 跨 seed 多样性坍缩(teacher 0.732 → 学生 0.60-0.65),**非**动态度坍缩(dm40 干净 DD:学生 0.75-1.0 ≥ teacher 0.625;smooth 0.97+ 排除抖动)。DD 口径:dm40 DD_clean 可引用,q150-DD 降脚注相对读。
+- **退化定性(评估协议贡献)**:少步退化 = 跨 seed 多样性坍缩(teacher 0.732 → 学生 0.59-0.64,含审计臂),**非**动态度坍缩(dm40 干净 DD:学生 0.75-1.0 ≥ teacher 0.625;smooth 0.97+ 排除抖动)。DD 口径:dm40 DD_clean 可引用,q150-DD 降脚注相对读。
 - 竞品坐标:CoDMD 84.46 等 full-VBench 数字只作文献坐标,协议差异必须脚注(禁 SOTA 对比,T3 红线 8)。full VBench 两模型 E1a@1000 + W7@1000(946×5)生成 2026-07-21 in-flight:e1a 5/5 seed 齐(各 946),w7 s1/s2/s4 齐、s0/s3 收尾中;flat 目录已产出(各 4720 条,946×5 去重后)。**打分 12/16 维已完成(2026-07-22 17:18)**:缺的 4 维全为 GRiT 系(color/object_class/multiple_objects/spatial_relationship,缺 detectron2,墙内源码编译风险高)——用户裁决**缓议**,先按 12 维推进写作;亮点:dynamic_degree 官方域大分化(w7 0.911 vs e1a 0.581,独立复证发现 5 方向)。详见 `experiments/results/2026-07-22-vb946-scoring-launch.md`。
 - 晚间三线结果(2026-07-23 晨全部落定):① e1a@2000 div = 0.6225(@1000 0.635→@2000 0.622,仍高于 relay 两档);② **flow 多 seed 定稿:W7>E1a 在 4/4 seed 全同向(中位均值 3.36 vs 1.81,≈1.9×),发现 5 升级为多 seed 稳健**,但 seed 方差大(单 seed 百分比弃用,Ch2 已改写);③ **E1b@500 full-VBench 12 维齐**——三臂主表落成:E1a 赢一致性/平滑/闪烁类,W7 赢动态与语义动作类,E1b 居中(见 `experiments/results/2026-07-23-flow-multiseed-e1b946-e2a-eval.md`)。
-- **2026-07-25 晨:Ch3 三臂对照定稿**(E2a=GAN0 / W7=配对 GAN / E2b=独立 (t,ε) GAN,全部 5 档 sweep + 六维 + 多样性 + flow):①运动幅值由 GAN 分支驱动且与配对约定无关(E2b flow 2.40→4.71 单调爬升,E2a 滞留 teacher 级);②质量维与 GAN 反向,"早峰后滑"获候选机制归因;③ **Claim D 裁定:配对 vs 独立不敏感**(同档几乎无差,首个受控消融即审计贡献);④多样性对判别器不敏感(坍缩归蒸馏本身)。E2a 冠军档 n=3 定稿(aes 0.613/imaging 0.723,带与 GAN-on 臂不重叠)。**E2c(R1 臂)确证受硬件限制取消**(4/8 卡形态均确定性 OOM 于 R1 额外前向,补丁无效;校准值 0.75 与配置留档供 80G 节点复现,审计矩阵该维标"未测");E2b 冠军档 @500 q150 n=3 补漏中。详见 `experiments/results/2026-07-25-e2b-fulltable-ch3-threearm.md`。
+- **2026-07-25 晨:Ch3 三臂对照定稿**(E2a=GAN0 / W7=配对 GAN / E2b=独立 (t,ε) GAN,全部 5 档 sweep + 六维 + 多样性 + flow):①运动幅值由 GAN 分支驱动且与配对约定无关(E2b flow 2.40→4.71 单调爬升,E2a 滞留 teacher 级);②质量维与 GAN 反向,"早峰后滑"获候选机制归因;③ **Claim D 裁定:配对 vs 独立不敏感**(同档几乎无差,首个受控消融即审计贡献);④多样性对判别器不敏感(坍缩归蒸馏本身)。E2a 冠军档 n=3 定稿(aes 0.613/imaging 0.723;与 GAN-on 臂逐 seed 配对 3/3 同向,均值带带缘轻微接触——方向一致、幅度略超带宽)。**E2c(R1 臂)确证受硬件限制取消**(4/8 卡形态均确定性 OOM 于 R1 额外前向,补丁无效;校准值 0.75 与配置留档供 80G 节点复现,审计矩阵该维标"未测");E2b 冠军档 @500 q150 n=3 补漏中。详见 `experiments/results/2026-07-25-e2b-fulltable-ch3-threearm.md`。
 - 2026-07-23 日间落定:**E2a 训练完整成功**(12:12,2500/2500,5 档 checkpoint 齐;stall marker 为完成后误报,监护 pgrep 教训已入册);eval burst 自动跑(dm40+flow 支线已完,q150/d40 支线 ~18:30 前齐);**teacher 4-seed flow 定稿**(W7>teacher 4/4 硬结论;E1a<teacher 仅 3/4,弱化为"不高于");**E5 探针出首版**(`exp/eval/e5_probe.py` → `reports/e5/probe_v1.json`:全层 AUC 0.88-0.92、head 层 {15,22,29} 合理非最优、t 依赖极强(低 t AUC=1.0 / 高 t ≈随机)、teachergen 对照示可分性主要为生成域共性——非 headline 贡献);**E2b 已于 16:18 起训**(`gan_use_same_t_noise=False`,GAN 0.03,卡组 2/3/5/7;此前 GPU0 三次抢卡竞态,容错门控切卡后首攻即中)——first-health 过:iter1 正常,显存 31.1G/32.6G(95%,GAN 分支 +3.8G,边缘站住),稳态估 55-60s/iter,完成约 07-25 早间。GRiT 4 维缓议。详见 `experiments/results/2026-07-23-flow-multiseed-e1b946-e2a-eval.md`。
 - 进行中(2026-07-22):**E2a relay-stage GAN=0 已于 04:47 自动起训**(门控 v3 精检 125 轮后 gpu3 释放;4 卡 1/3/6/7,NCCL fail-fast + stall-guard 2600s 在岗)。first-health 通过:iter1 正常完成,显存 26.8G/32.6G(~82%),首步 ~52.7 s/iter → 500 iter ≈ 7.3h/档。详见 `experiments/results/2026-07-22-e2a-launch.md`。待做:E2 其余臂、E5 探针、full-VBench 打分(vb946 flat 目录已就绪)。
 - 节点与他人共享(2026-07-21 17:48 快照:对方占 GPU 0/2/3/4/5/7,我方 1/6 在跑 vb946);磁盘 /data 95%,余 1.2T(<90% 不可达:他人占 ~18T)。
@@ -53,7 +53,7 @@ eval prompts:  scripts/inference/prompts/wan21_dmd2_openvid_eval_prompts.txt(10 
 
 ## 记录口径
 
-- 训练健康指标(loss 曲线)≠ 收益指标;收益一律落在量化协议上:日常消融 = VBench 6 质量维 + CD-FVD(禁用 I3D-FVD)+ 跨 seed 多样性(LPIPS/DINO);主表 = full VBench(Total/Quality/Semantic)+ T2VHE 式人评 vs teacher 50-step;**Dynamic Degree 与多样性必须主动报**(TMD 证明 VBench 总分测不出 mode collapse;Phased DMD 证明 DMD2 动态性坍缩是公开攻击线)。
+- 训练健康指标(loss 曲线)≠ 收益指标;收益一律落在量化协议上:日常消融 = VBench 6 质量维 + CD-FVD(禁用 I3D-FVD)(CD-FVD 为计划项,实际未执行;协议以实际执行口径为准,见 Ch1 §1.8)+ 跨 seed 多样性(LPIPS/DINO);主表 = full VBench(Total/Quality/Semantic)+ T2VHE 式人评 vs teacher 50-step;**Dynamic Degree 与多样性必须主动报**(TMD 证明 VBench 总分测不出 mode collapse;Phased DMD 证明 DMD2 动态性坍缩是公开攻击线)。
 - **每次实验只改一个主要因素**。W6→W7 已违例(LR/batch/GPU 同时变),这是 P1a 存在的原因;此后任何配方改动必须可归因。
 - 每个 run 的超参以其输出目录 `config.yaml` 为准,不以报告转述为准;引用未重读的数字一律标注(如 W1 速度数字)。
 - checkpoint 选择用同一 prompt 集 sweep + 早停,不默认最后一个;每 500 iter 存档。
@@ -69,7 +69,7 @@ eval prompts:  scripts/inference/prompts/wan21_dmd2_openvid_eval_prompts.txt(10 
   student_sample_steps 4 / t_list [0.999, 0.937, 0.833, 0.624, 0.0] / guidance_scale 5.0 /
   student_update_freq 5(=每 5 iter 一次 student 更新)
 速度(2026-06-15,10 prompts):teacher 50-step(CFG 双前向 ≈100 NFE)平均 165.24s;
-  student 4-step 无 CFG 平均 6.59-6.63s ≈ 25x —— 内部记录,引用前重读远端 metrics.csv
+  student 4-step 无 CFG 平均 6.59-6.63s ≈ 25x —— 已复核 2026-07-26(路径:`wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv`;teacher 精确一致,student 全 sweep 6.591-6.656,范围上限勘误待 planner 裁)
 ```
 
 ## W2:8-step 首训(artifact 已不可复核)

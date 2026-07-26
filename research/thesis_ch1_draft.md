@@ -54,7 +54,7 @@
 | teacher Wan2.1-T2V-1.3B | 50 | 5.0(双前向) | ≈100 | 165.24s |
 | 4-step 学生(W1/W7 同构推理路径) | 4 | 无 | 4 | 6.59–6.63s |
 
-加速比 ≈25×,与 NFE 比(100:4)一致,即时延收益几乎全部来自步数与 CFG 的删减、无额外推理开销。分辨率 480p、81 帧。**注**:该速度数字为 2026-06-15 的内部记录(canonical report 标注"引用前重读远端 `metrics.csv`"),终稿冻结前需回读远端原始文件确认(已列入数字缺口清单)。
+加速比 ≈25×,与 NFE 比(100:4)一致,即时延收益几乎全部来自步数与 CFG 的删减、无额外推理开销。分辨率 480p、81 帧。**注**:速度数字已于 2026-07-26 直读远端原始文件复核(`wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv`):teacher 165.24s 精确一致;student 全 sweep 实读 6.591-6.656s(speedup 24.83-25.07×)——正文所引 6.59-6.63 覆盖前段档位,范围上限是否改写为 6.66 待 planner 裁。
 
 ## 1.5 方法论:肉眼选档被量化系统性推翻 → best-of-sweep + 早停
 
@@ -102,12 +102,12 @@ W4 的 subject/background consistency 为 E0 全表最高,而 imaging、aestheti
 2. **dm40 清洁 DD(动态度双口径的可引用侧)**:q150 的 DD 被套件内 still/frozen 类 prompt 混淆(teacher q150-DD 仅 0.300,服从"静止"指令反而压分;dm40 上 teacher 0.625)。dm40 = 40 条 motion 导向 prompt(20 条官方 `human_action.txt` uniform stride + 20 条 `all_dimension.txt` 经 MOTION_CUE 正则过滤并排除 STATIC_BLOCK;md5 `324d75a0`)。**口径规则:DD_clean(dm40)可引用;q150-DD 仅脚注级表内相对读**。
 3. **d40×8 跨 seed 多样性**:40 prompts × 8 seeds,平均成对 LPIPS-alex(越高越多样;md5 `b4c1f9e3`)。这是本项目证明的主退化轴(teacher 0.732 → 学生 0.59–0.64),必须主动报告。
 4. **RAFT 连续光流幅值(运动幅值双口径)**:dm40 域,像素/帧;**中位数为主读、均值并报**(teacher 中位 2.75 / 均值 5.16,重尾分布,单口径会失真)。动机:二值 DD 对好学生饱和到 ~1.0(天花板),无法分辨臂间运动差异。多 seed 纪律(2026-07-23 定稿):**臂间方向按逐 seed 配对报告(如 W7>E1a 4/4 seed 同向),单 seed 绝对百分比禁止单独引用**(seed 间中位可差 6 倍,初始噪声主导部分动态水平)。
-5. **主表协议**:full VBench standard mode(官方 946 prompts × 5 seeds);已完成 16 维中的 12 维,缺失 4 维均为 GRiT 依赖维(color/object_class/multiple_objects/spatial_relationship,detectron2 未装,用户裁决缓议)。**12 维恰含官方 Quality Score 全部 7 个质量维,可按官方权重合成 Quality Score;Semantic 与 Total 因缺维不可算,表内显式声明**。temporal_flickering 官方协议为专属子集 25 样本/prompt,我们为 5 样本,须脚注。与文献数字(如 CoDMD 84.46)同页必须脚注协议差异,禁一切 SOTA 对比表述。
+5. **主表协议**:full VBench standard mode(官方 946 prompts × 5 seeds);已完成 16 维中的 12 维,缺失 4 维均为 GRiT 依赖维(color/object_class/multiple_objects/spatial_relationship,detectron2 未装,用户裁决缓议)。**12 维恰含官方 Quality Score 全部 7 个质量维,可按官方权重合成 Quality Score;Semantic 与 Total 因缺维不可算,表内显式声明**。temporal_flickering 官方协议为专属 75-prompt 子集、**25 样本/prompt、且经 static_filter 预筛**(官方原文"sample 25 videos to ensure sufficient coverage after applying the static filter",出处 Vchitect/VBench `prompts/README.md`@master,2026-07-26 取证);我们为 standard mode 5 样本、未执行 static_filter,该维与官方口径不可互比,须脚注或弃维。与文献数字(如 CoDMD 84.46)同页必须脚注协议差异,禁一切 SOTA 对比表述。
 6. **通用口径规则**:q150 / dm40 / vb946 三个域的数字不跨表混引;训练健康指标(loss 曲线)不是质量证据;每实验只改一个主要因素;人评(T2VHE 式 vs teacher)在计划协议中但未执行,列为 limitation。
 
 ## 1.8 效度威胁(如实)
 
-- 速度数字(165.24s / 6.59–6.63s)为 2026-06-15 内部记录,终稿前须重读远端 `metrics.csv`(数字缺口清单第 1 项)。
+- 速度数字(165.24s / 6.59–6.63s)已复核(2026-07-26 直读远端 `metrics.csv`,路径见 §1.4 注;teacher 精确一致,student 上限 6.63→实读 6.656 的 0.026s 勘误待 planner 裁)。
 - W2 远端 artifact 已消失,其"模糊"结论只作背景;W5 相对 W2–W4 同时改了 LR 与 batch,8-step 段内部存在归因混淆——不影响"W5 作为接力源够好"的工程判断,但 8-step 段不下配方结论。
 - W6→W7 三因素混淆使 6 月阶段的任何配方归因失效;补救即第 2、3 章的单变量受控设计。
 - 原计划协议含 CD-FVD(分布级指标),实际未执行;本章协议摘要按实际执行口径书写(缺口清单第 3 项)。
