@@ -8,7 +8,7 @@ Last updated: 2026-07-20
 
 | ID | 状态 | 实验(远端 run 目录名后缀) | 关键结论 | 详表 |
 |---|---|---|---|---|
-| W1 | 已完成 | 4-step 基线 `..._global_8`(LR 1.25e-6 / batch 8 / 6000 iter) | 训练闭环通;肉眼最佳 ckpt `0001000`;10-prompt 速度 sweep:teacher 165.24s vs student 6.59-6.63s ≈ 25x(**已复核 2026-07-26,直读远端 metrics.csv**:teacher 165.24 精确一致;student 全 sweep 实读 6.591-6.656、speedup 24.83-25.07x——上限 6.63→6.656 有 0.026s 出入,是否改写为 6.59-6.66 待 planner 裁) | 远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` |
+| W1 | 已完成 | 4-step 基线 `..._global_8`(LR 1.25e-6 / batch 8 / 6000 iter) | 训练闭环通;肉眼最佳 ckpt `0001000`;10-prompt 速度 sweep:teacher 165.24s vs student 6.59-6.66s ≈ 25x(**已复核并勘误 2026-07-26,直读远端 metrics.csv**:teacher 165.24 精确一致;student 全 sweep 实读 6.591-6.656、speedup 24.83-25.07x;范围取 6.59-6.66,planner 裁定) | 远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` |
 | W2 | 已完成(artifact 不可复核) | 8-step 首训 `..._step8`(7 卡续训至 2530) | `0002500` 平均 13.16s、明显模糊差于 W1 `0001000`——仅本地 2026-06-17 索引记载,**远端目录已消失,不得作为已证明证据** | `reports/2026-06-17-wan-dmd2-openvid-progress.md` |
 | W3 | 已量化 | 8-step 消融 `..._step8_freq`(`student_update_freq=2`,LR 1.25e-6 / batch 10 / 1000 iter) | 近静态+噪声型退化(DD_q150 0.113 / imaging 0.395);短训低 LR 预期内,仅作轴 C 观察点 | 2026-07-14 E0 注记 |
 | W4 | 已量化 | 8-step 消融 `..._step8_normalize`(均匀 t_list,LR 1.25e-6 / batch 10 / 1500 iter) | **教科书级 mode collapse**:consistency 全表最高(0.975/0.979)但 imaging 0.256/div 0.462 全表最低——在本基座独立复现 TMD"均匀 t_list 致坍缩",是评估协议有效性的正面证据 | 同上 |
@@ -69,7 +69,7 @@ eval prompts:  scripts/inference/prompts/wan21_dmd2_openvid_eval_prompts.txt(10 
   student_sample_steps 4 / t_list [0.999, 0.937, 0.833, 0.624, 0.0] / guidance_scale 5.0 /
   student_update_freq 5(=每 5 iter 一次 student 更新)
 速度(2026-06-15,10 prompts):teacher 50-step(CFG 双前向 ≈100 NFE)平均 165.24s;
-  student 4-step 无 CFG 平均 6.59-6.63s ≈ 25x —— 已复核 2026-07-26(路径:`wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv`;teacher 精确一致,student 全 sweep 6.591-6.656,范围上限勘误待 planner 裁)
+  student 4-step 无 CFG 平均 6.59-6.66s ≈ 25x —— 已复核并勘误 2026-07-26(路径:`wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv`;teacher 精确一致,student 全 sweep 6.591-6.656,范围取 6.59-6.66,planner 裁定)
 ```
 
 ## W2:8-step 首训(artifact 已不可复核)

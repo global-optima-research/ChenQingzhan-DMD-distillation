@@ -14,9 +14,9 @@
 - **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(当前状态节)。
 
 ### P2|任务与加速:25× 来自步数与 CFG 的删减
-- **主张**:50-step teacher(CFG=5,≈100 NFE)→ 4-step 学生(无 CFG,4 NFE),单条 480p×81 帧 165.24s → 6.59–6.63s,≈25×,与 NFE 比一致。
+- **主张**:50-step teacher(CFG=5,≈100 NFE)→ 4-step 学生(无 CFG,4 NFE),单条 480p×81 帧 165.24s → 6.59–6.66s,≈25×,与 NFE 比一致。
 - **承载**:速度对照表(2 行:teacher/学生 × 步数/CFG/NFE/时延);可配 1 组同 prompt 对照帧。
-- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(W1 节;速度已于 2026-07-26 直读远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` 复核:teacher 165.24 精确一致,student 全 sweep 6.591-6.656、speedup 24.83-25.07×;上限 0.026s 勘误待 planner 裁)。
+- **出处**:`reports/experiment-report-wan21-t2v-dmd2-progressive.md`(W1 节;速度已于 2026-07-26 直读远端 `wan21_t2v_dmd2_OpenVid_global_8/reports/eval_10prompts/metrics.csv` 复核:teacher 165.24 精确一致,student 全 sweep 6.591-6.656、speedup 24.83-25.07×;范围按实读勘误为 6.59–6.66,planner 裁定 2026-07-26)。
 - **红线**:速度数字标内部记录出处。
 
 ### P3|方法与配方:上游复用 + 训练日程层贡献
@@ -121,6 +121,7 @@
 3. **"GAN 关了质量更高,为什么不直接建议关 GAN?"**——单权重点(0.03)、单血统(relay)、且关 GAN 后运动幅值衰减回 teacher 级——按轴取舍,不是免费午餐;我们给的是归因不是配方建议。出处:`2026-07-25-e2b-fulltable-ch3-threearm.md`。
 4. **"为什么没有人评?"**——时间窗内优先受控消融;人评列 limitation 与 future work(计划 T2VHE 式 vs teacher)。出处:`acceptance-log.md` #11。
 5. **"E2c 为什么没测?"**——确定性 OOM(32G 节点,R1 第二次判别器前向),非配方失败;校准值/配置留档可在 80G 节点一键复现。出处:`2026-07-25-e2b-fulltable-ch3-threearm.md` E2c 节。
+6. **"为什么加冕的 E1a 合成分最低(82.80)?"**——Quality Score 的权重结构使然:dynamic_degree 以 0.5 权重计入,E1a 的低动态特性(vb946 DD 0.5806)拖低合成分,而它赢的一致性/平滑/闪烁维经归一化后区分度小。加冕依据是预注册的 G2 消融协议(q150 六维 + 跨 seed 多样性),QS 为补充参考——这正是"按轴各有所长、单一合成分掩盖轴间取舍"的又一实例。另注:W7 的 QS 84.47 与 CoDMD 文献值 84.46 系数字巧合(7 维 Quality vs 16 维 Total,量纲不同),两数字永不同页并列。出处:`2026-07-26-e2a-vb946-fourth-row.md` QS 节。
 
 ## 时间提示
 
