@@ -1,116 +1,117 @@
-# 2026-07-28 Presentation Script (English, 510-second execution version)
+# 2026-07-28 Presentation Script (English, simple spoken version, 510s)
 
 > Companion deck: `slides/DMD2_report_0728_V2.pptx` (compact-session timing, commit 88e0a5f).
-> Pace baseline: ~140 words/min; cumulative time marks per page.
-> Rules: no numbers beyond what is on the slides (spoken approximations allowed — exact values are on screen); banned wording — "significant", any claim of "surpassing the teacher", all internal project codenames.
-> Emergency rule: if past 7:00 when P5 ends, deliver only the first and last sentences of P7.
+> Style: short sentences, common words, subject-verb-object. Made for a non-native speaker. Pace ~120–125 words/min — do not rush; pause briefly at every [bracket].
+> Rules: no numbers beyond what is on the slides; banned wording — "significant", any claim of "surpassing the teacher", all internal project codenames.
+> Emergency rule: if past 7:00 when P5 ends, say only the first and last sentences of P7.
 
 ---
 
 ## P0 | Cover (10s) [cum. 0:10]
 
-Good afternoon, professors. I am Chen Hing Chin, student ID 21205180. My topic today: few-step distillation of Wan2.1-T2V — diagnosing and attributing the quality degradation behind a 25× speed-up.
+Good afternoon, professors. I am Chen Hing Chin, student ID 21205180. My topic: few-step distillation of Wan2.1 text-to-video — we make it 25 times faster, and we study what quality is lost, and which part causes it.
 
 [Advance; P1 videos autoplay]
 
 ## P1 | Task and Question (60s) [cum. 1:10]
 
-On screen are two videos from the same prompt. Left: the 50-step teacher — 165 seconds per clip. Right: our distilled 4-step student — about six and a half seconds. Roughly 25× faster, consistent with the reduction in compute.
+Here are two videos from the same prompt. Left: the teacher model, 50 steps, 165 seconds per video. Right: our student model, only 4 steps, about 6.5 seconds. That is about 25 times faster.
 
 [Speak over the video after ~5 seconds]
 
-The training framework and all hyperparameters come from NVIDIA FastGen's public configuration. Our own work is twofold: first, a "step-count relay" training schedule — train an 8-step intermediate model, then hand over to a 4-step stage; second, a systematic degradation audit, which is today's main thread.
+The training framework and all hyper-parameters come from NVIDIA FastGen, a public repository. Our own work has two parts. Part one: a training schedule called "step-count relay" — first train an 8-step model, then use it to start a 4-step model. Part two: a careful study of the quality loss. That is today's main story.
 
-At first glance the two videos look close. But "looks fine" is not the same as "is fine". Today I answer one question: after a 25× speed-up, what exactly did we lose — and which component is responsible?
+The two videos look similar. But "looks fine" does not mean "is fine". So, one question today: after the 25-times speed-up, what did we lose — and which part of the method caused it?
 
 [Advance]
 
 ## P2 | Why Not Trust the Eye (50s) [cum. 2:00]
 
-First, why subjective judgement is not enough.
+First: why we cannot just trust our eyes.
 
-[Point to left chart] This is the relay student's aesthetic quality over training: it declines monotonically. Yet the checkpoint we had picked by visual inspection was step 2500 — the end of the decline; the quantitative optimum lies between steps 500 and 1000. On the other training line, visual inspection picked too early. Two lines, wrong in opposite directions — the unreliable thing is subjective selection itself.
+[Point to left chart] This curve is the quality of the relay student during training. It keeps going down. But by eye, we had picked step 2500 — the end of the curve. The true best point is between step 500 and 1000. On another training run, we picked too early. Two runs, two mistakes, opposite directions. So the problem is "picking by eye" itself.
 
-[Point to right table] And an extreme counterexample: a collapsed model, almost static output — yet it scores highest of all on consistency metrics. Judged by those alone, a broken model would rank first.
+[Point to right table] And an extreme example: this model is broken — its output is almost a still image. But its consistency scores are the highest of all. If we only look at consistency, a broken model wins.
 
-Hence our four-component protocol, and one rule: checkpoint every 500 steps, evaluate all of them, take the best, then re-test it with three random seeds.
+So we built a four-part evaluation protocol, with one rule: save a checkpoint every 500 steps, test all of them, pick the best, then re-test it with three random seeds.
 
 [Advance]
 
 ## P3 | Core Finding (75s) [cum. 3:15; hard checkpoint ≤3:30]
 
-Measured with this instrument, here is the central finding of the project.
+With this protocol, here is our main finding.
 
-Start with what the field worries about — motion. [Point to lower-left panel] On 40 motion-oriented prompts, the students' dynamic degree is not below the teacher's, and motion smoothness above 0.97 rules out jitter artifacts. The feared "few-step models stop moving" did not appear in our setting.
+First, motion. [Point to lower-left panel] Many papers worry that few-step models stop moving. Not in our case. On 40 motion prompts, the students move as much as the teacher, or more. And the motion is smooth — real motion, not shaking.
 
-What is consistently lost is diversity. [Point to the wall] Same prompt, only the random seed changes. Top row — the teacher: eight seeds, eight different compositions. Bottom row — the student: eight seeds converging to nearly one template. [Point to lower-right panel] The numbers agree: teacher 0.732; every student drops to 0.59–0.64 — roughly a 13 to 19 percent loss. Weak or strong recipe, direct distillation or relay — no exception. This is the most-replicated finding of the project.
+What we really lose is diversity. [Point to the wall] Same prompt, only the random seed changes. Top row, the teacher: eight seeds, eight different scenes. Bottom row, the student: eight seeds, almost the same scene every time. [Point to lower-right panel] The numbers agree: the teacher scores 0.732; every student drops to 0.59 to 0.64 — about 13 to 19 percent lower. Weak recipe, strong recipe, direct, relay — all of them drop. This is the most repeated finding in our project.
 
-So who is responsible? Two controlled ablations.
-
-[Advance]
-
-## P4 | Ablation 1: the Step-Count Relay (75s) [cum. 4:30]
-
-The first ablation targets our own relay design.
-
-[Point to design box] The comparison is fully matched: 5,000 iterations total for the relay path, 5,000 for direct distillation; same data, same recipe, same evaluation; and two direct-distillation runs at high and low learning rates, so "the baseline wasn't tuned" does not apply. Our pre-registered expectation was a tie.
-
-[Point to main table] The result: direct distillation is slightly ahead. Quality is essentially tied — on the imaging metric the direct student is actually the highest among all students. On diversity, both direct runs are above both relay checkpoints, same direction. So the relay does not mitigate the diversity collapse; it deepens it.
-
-[Point to bar chart] The relay's one robust, real difference is motion amplitude: about 1.9 times the direct student's, consistent across all four seeds, and above the teacher reference line. Whether that is a merit depends on your criterion — we take no side. But it is a lead: what maintains this motion?
+So, which part causes it? We run two controlled ablations.
 
 [Advance]
 
-## P5 | Ablation 2: the GAN Branch (105s) [cum. 6:15; hard checkpoint ≤6:30]
+## P4 | Ablation One: the Step-Count Relay (75s) [cum. 4:30]
 
-The answer lies in the second ablation: the discriminator branch — the GAN term in the recipe.
+Ablation one: our own relay design.
 
-The design is clean: same 8-step intermediate model as the starting point, same recipe, one field changed at a time. Arm one: switch the GAN off entirely. Arm two: change only the discriminator's pairing convention.
+[Point to design box] The comparison is fair. The relay path gets 5000 iterations in total; direct distillation also gets 5000. Same data, same recipe, same evaluation. And we run direct distillation twice — high and low learning rate. Before the experiment, we registered our expectation: a tie.
 
-[Point to center chart] This is the most important figure of the talk. X-axis, training iterations; y-axis, aesthetic quality. With the GAN off, quality climbs throughout training. With the GAN on — both arms — quality declines. The "early peak, then decline" left open on page 3 gets its candidate explanation here: switch the GAN off, and the phenomenon disappears and reverses; the best checkpoints re-tested on three seeds agree in direction. I say "candidate" because we tested a single GAN weight, on the relay path only.
+[Point to main table] The result: direct is slightly better. Quality is basically a tie — on the imaging score, the direct student is even the highest of all students. On diversity, both direct runs beat both relay checkpoints. So the relay does not reduce the diversity problem. It makes it worse.
 
-Second conclusion: motion amplitude is mainly maintained by the GAN. Off — motion falls back to the teacher's level. On — it rebuilds from a low point up to 4.7. Yet the direct student, with the GAN on, still moves little — the effect interacts with the relay initialization, so we do not claim "GAN always increases motion".
+[Point to bar chart] The relay keeps only one real difference: motion amplitude. About 1.9 times the direct student, on all four seeds, and higher than the teacher. Good or bad? It depends on what you want; we take no side. But it is a clue: what keeps this motion so high?
 
-Third: the widely copied default pairing — the discriminator sees real and fake corrupted with the same noise and timestep. To our knowledge it had never been tested in a controlled way. We tested it: across five checkpoint pairs the differences are all within 0.011 — no detected effect.
+[Advance]
 
-[Point to bottom band] And keep this line in mind: diversity across all three arms sits within 0.586–0.613 — insensitive to the GAN switch and to the pairing.
+## P5 | Ablation Two: the GAN Branch (105s) [cum. 6:15; hard checkpoint ≤6:30]
+
+The answer comes from ablation two: the GAN part — the discriminator.
+
+The design is clean. Same starting point — the same 8-step model. Same recipe. We change one thing at a time. Arm one: turn the GAN off. Arm two: change only the pairing rule of the discriminator.
+
+[Point to center chart] This is the most important figure today. X-axis: training iterations. Y-axis: aesthetic quality. With the GAN off, quality goes up, all the way. With the GAN on — both arms — quality goes down. Remember page 3: quality peaks early, then drops. Here is the candidate reason. Turn off the GAN, and the problem disappears — it even reverses. We re-tested the best checkpoints with three seeds; same direction. I say "candidate", because we tested only one GAN weight, and only on the relay path.
+
+Second: motion. The GAN keeps the motion high. Turn it off — motion falls back to the teacher's level. Turn it on — motion climbs to 4.7. But the direct student also has the GAN on, and it still moves little. So the effect also depends on the relay initialization. We do not claim "GAN always increases motion".
+
+Third: the pairing rule. By default, the discriminator sees the real and the fake sample with the same noise and the same timestep. Everyone copies this setting; as far as we know, nobody has tested it. We tested it. Across five checkpoint pairs, all differences are within 0.011. No effect detected.
+
+[Point to bottom band] One more line: diversity in all three arms stays between 0.586 and 0.613. GAN on, GAN off, pairing changed — diversity does not move.
 
 [Advance]
 
 ## P6 | Closing the Attribution (45s) [cum. 7:00]
 
-Put the three checks together. Replace the relay route — the collapse remains, even deeper. Switch off the GAN — it remains. Change the pairing — it remains.
+Now put the three checks together. Change the training route — the collapse is still there, even worse. Turn off the GAN — still there. Change the pairing — still there.
 
-Among every component we tested, none is the source: the diversity collapse comes from the distribution-matching distillation itself.
+None of the parts we tested is the cause. The diversity collapse comes from the distillation itself.
 
-We have not solved it. But we have turned "the model seems worse" into a precisely measured problem whose suspected sources have been excluded under control. That is the open problem we leave with this direction.
+We did not solve it. But we turned a vague feeling — "the model seems worse" — into a precise, measured problem, with the main suspects ruled out. We leave it as an open problem.
 
 [Advance]
 
 ## P7 | External Benchmark (45s) [cum. 7:45; if over time, first and last sentences only]
 
-On the standard VBench benchmark — 946 prompts, 5 seeds each, 12 dimensions — the conclusion: no dominant model.
+On the standard benchmark, VBench — 946 prompts, 5 seeds, 12 dimensions — no model wins everywhere.
 
-[Point to right column] Our primary direct student leads on consistency, smoothness and flicker; the relay student leads on dynamic degree and action semantics; the GAN-off ablation model has the best static image quality with motion intact — consistent, across datasets, with the ablation findings.
+[Point to right column] The direct student wins on consistency, smoothness and flicker. The relay student wins on motion and action. The GAN-off model has the best static image quality, and its motion is still fine — this matches our ablation results.
 
-And the diversity champion is still the teacher — a dimension VBench does not measure. Which is exactly why we built our own protocol.
+And the diversity champion is still the teacher. VBench does not measure diversity at all — that is exactly why we built our own protocol.
 
 [Advance]
 
 ## P8 | Conclusions (45–50s) [cum. 8:30–8:35]
 
-Four take-aways. Diagnosis: the main degradation is cross-seed diversity, not motion. Attribution: the quality decline and the motion amplitude relate mainly to the GAN branch; the pairing convention shows no detected effect; the diversity collapse comes from distillation itself — an open problem. Method: a lightweight, seed-controlled degradation audit protocol. Engineering: a 25× speed-up, and — to our knowledge — the first controlled relay-versus-direct comparison on this base model.
+To conclude, four points. Diagnosis: the main loss is cross-seed diversity, not motion. Attribution: the quality drop and the motion amplitude are mainly related to the GAN part; the pairing rule shows no detected effect; the diversity collapse comes from distillation itself — an open problem. Method: a light, seed-controlled evaluation protocol. Engineering: a 25-times speed-up, and — as far as we know — the first controlled relay-versus-direct comparison on this model.
 
-Limitations, stated plainly: no human evaluation; four benchmark dimensions missing; the R1-regularization arm untested due to 32-gigabyte memory limits; one training run per configuration.
+Our limitations, honestly: no human evaluation; four benchmark dimensions are missing; one ablation arm was blocked by GPU memory; each configuration was trained only once.
 
-[Point to bottom band] One line to remember: 165 seconds down to six point six; diversity 0.732 down to around 0.6; three components excluded under control.
+[Point to bottom band] One line to remember: 165 seconds down to 6.6; diversity 0.732 down to about 0.6; three parts ruled out, under control.
 
 Thank you. The thesis will be submitted on July 31st.
 
 ---
 
 ### Rehearsal notes
-- Pass = two consecutive timed runs within 510s. Checkpoints: P3 done ≤3:30, P5 done ≤6:30, P7 done ≤7:45.
-- P3 through P6 is one continuous argument — no pauses between pages. P5 is the longest page; take it calmly and reclaim time on P7.
-- Videos: play only on P1 (~5s); walk through P3/P4 on static thumbnails.
-- Post-session questions: fallback answers live in backup pages B1–B6 and the speaker notes (seed replacement, composite score, the three practical recommendations).
+- Pass = two timed runs in a row within 510s. Checkpoints: P3 done ≤3:30, P5 done ≤6:30, P7 done ≤7:45.
+- Speak slowly and clearly (~120 words/min). Short pause at every [bracket]. Do not add sentences that are not in the script.
+- Hard words check (practice these): distillation / discriminator / diversity / iterations / amplitude / checkpoint. If "attribution" feels hard, say "which part causes it" instead — same meaning.
+- Videos: play only on P1 (~5s). Walk through P3/P4 on the still images.
+- If a professor asks questions after the session, fallback answers are in backup pages B1–B6 and the speaker notes.
