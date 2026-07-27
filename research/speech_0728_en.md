@@ -57,7 +57,7 @@ Ablation one: our own relay design.
 
 [Point to main table] The result: direct is slightly better. Quality is basically a tie — on the imaging score, the direct student is even the highest of all students. On diversity, both direct runs beat both relay checkpoints. So the relay does not reduce the diversity problem. It makes it worse.
 
-[Point to bar chart] The relay keeps only one real difference: motion amplitude. About 1.9 times the direct student, on all four seeds, and higher than the teacher. Good or bad? It depends on what you want; we take no side. But it is a clue: what keeps this motion so high?
+[Point to bar chart] The relay keeps only one real difference: the amount of motion. It moves about 1.9 times as much as the direct student, on all four seeds, and more than the teacher. Good or bad? It depends on what you want; we take no side. But it is a clue: what keeps this motion so high?
 
 [Advance]
 
@@ -99,7 +99,7 @@ And the diversity champion is still the teacher. VBench does not measure diversi
 
 ## P8 | Conclusions (45–50s) [cum. 8:30–8:35]
 
-To conclude, four points. Diagnosis: the main loss is cross-seed diversity, not motion. Attribution: the quality drop and the motion amplitude are mainly related to the GAN part; the pairing rule shows no detected effect; the diversity collapse comes from distillation itself — an open problem. Method: a light, seed-controlled evaluation protocol. Engineering: a 25-times speed-up, and — as far as we know — the first controlled relay-versus-direct comparison on this model.
+To conclude, four points. Diagnosis: the main loss is cross-seed diversity, not motion. Attribution: the quality drop and the amount of motion are mainly related to the GAN part; the pairing rule shows no detected effect; the diversity collapse comes from distillation itself — an open problem. Method: a light, seed-controlled evaluation protocol. Engineering: a 25-times speed-up, and — as far as we know — the first controlled relay-versus-direct comparison on this model.
 
 Our limitations, honestly: no human evaluation; four benchmark dimensions are missing; one ablation arm was blocked by GPU memory; each configuration was trained only once.
 
@@ -112,6 +112,6 @@ Thank you. The thesis will be submitted on July 31st.
 ### Rehearsal notes
 - Pass = two timed runs in a row within 510s. Checkpoints: P3 done ≤3:30, P5 done ≤6:30, P7 done ≤7:45.
 - Speak slowly and clearly (~120 words/min). Short pause at every [bracket]. Do not add sentences that are not in the script.
-- Hard words check (practice these): distillation / discriminator / diversity / iterations / amplitude / checkpoint. If "attribution" feels hard, say "which part causes it" instead — same meaning.
+- Hard words check (practice these): distillation / discriminator / diversity / iterations / checkpoint. If "attribution" feels hard, say "which part causes it" instead — same meaning.
 - Videos: play only on P1 (~5s). Walk through P3/P4 on the still images.
 - If a professor asks questions after the session, fallback answers are in backup pages B1–B6 and the speaker notes.
