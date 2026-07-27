@@ -30,3 +30,10 @@ artifacts/tmp/
 .vscode/
 .idea/
 slides_assets/
+
+# Slides build artifacts (deck itself is delivered as a file, not tracked)
+slides/node_modules/
+slides/covers/
+slides/qa_covers/
+slides/qa/
+slides/*.pptx
