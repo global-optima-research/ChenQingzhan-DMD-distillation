@@ -1,0 +1,237 @@
+% refs.bib — populate ONLY from research/verified_citations.md (hard rule #2).
+% Entry keys: first-author-or-name + year, e.g. dmd2_2024, fastgen_repo.
+% Tool/website entries use misc with howpublished = {\url{...}} and note = {Accessed: 2026-07-31}.
+%
+% All authors/titles fetched from arxiv.org/abs/<id> on 2026-07-28 (one WebFetch per entry).
+% Venue field follows the whitelist (research/verified_citations.md) verbatim; entries the
+% whitelist marks as preprint / tech report / withdrawn / unaccepted are misc with
+% howpublished = {arXiv preprint arXiv:XXXX.XXXXX} and NO venue.
+% For inproceedings, year = conference year (so venue+year renders correctly); for misc,
+% year = arXiv v1 year.
+
+% ---------------------------------------------------------------------------
+% Base model / data / metrics
+% ---------------------------------------------------------------------------
+
+@misc{wan21,
+  title        = {{Wan: Open and Advanced Large-Scale Video Generative Models}},
+  author       = {{Team Wan} and others},
+  year         = {2025},
+  howpublished = {arXiv preprint arXiv:2503.20314}
+}
+
+@inproceedings{openvid,
+  title     = {{OpenVid-1M: A Large-Scale High-Quality Dataset for Text-to-video Generation}},
+  author    = {Kepan Nan and Rui Xie and Penghao Zhou and Tiehan Fan and Zhenheng Yang and Zhijie Chen and Xiang Li and Jian Yang and Ying Tai},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2025}
+}
+
+@inproceedings{lpips,
+  title     = {{The Unreasonable Effectiveness of Deep Features as a Perceptual Metric}},
+  author    = {Richard Zhang and Phillip Isola and Alexei A. Efros and Eli Shechtman and Oliver Wang},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2018}
+}
+
+@inproceedings{raft,
+  title     = {{RAFT: Recurrent All-Pairs Field Transforms for Optical Flow}},
+  author    = {Zachary Teed and Jia Deng},
+  booktitle = {Proceedings of the European Conference on Computer Vision (ECCV)},
+  year      = {2020}
+}
+
+@inproceedings{vbench,
+  title     = {{VBench: Comprehensive Benchmark Suite for Video Generative Models}},
+  author    = {Ziqi Huang and others},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2024}
+}
+
+@inproceedings{t2vhe,
+  title     = {{Rethinking Human Evaluation Protocol for Text-to-Video Models: Enhancing Reliability, Reproducibility, and Practicality}},
+  author    = {Tianle Zhang and others},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2024}
+}
+
+% ---------------------------------------------------------------------------
+% DMD lineage / image-domain distillation
+% ---------------------------------------------------------------------------
+
+@inproceedings{dmd1,
+  title     = {{One-step Diffusion with Distribution Matching Distillation}},
+  author    = {Tianwei Yin and Micha{\"e}l Gharbi and Richard Zhang and Eli Shechtman and Fredo Durand and William T. Freeman and Taesung Park},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2024}
+}
+
+@inproceedings{dmd2,
+  title     = {{Improved Distribution Matching Distillation for Fast Image Synthesis}},
+  author    = {Tianwei Yin and Micha{\"e}l Gharbi and Taesung Park and Richard Zhang and Eli Shechtman and Fredo Durand and William T. Freeman},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2024}
+}
+
+@inproceedings{guideddistill,
+  title     = {{On Distillation of Guided Diffusion Models}},
+  author    = {Chenlin Meng and Robin Rombach and Ruiqi Gao and Diederik P. Kingma and Stefano Ermon and Jonathan Ho and Tim Salimans},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2023}
+}
+
+@misc{imagenvideo,
+  title        = {{Imagen Video: High Definition Video Generation with Diffusion Models}},
+  author       = {Jonathan Ho and others},
+  year         = {2022},
+  howpublished = {arXiv preprint arXiv:2210.02303}
+}
+
+@misc{sdxllightning,
+  title        = {{SDXL-Lightning: Progressive Adversarial Diffusion Distillation}},
+  author       = {Shanchuan Lin and Anran Wang and Xiao Yang},
+  year         = {2024},
+  howpublished = {arXiv preprint arXiv:2402.13929}
+}
+
+@inproceedings{hypersd,
+  title     = {{Hyper-SD: Trajectory Segmented Consistency Model for Efficient Image Synthesis}},
+  author    = {Yuxi Ren and Xin Xia and Yanzuo Lu and Jiacheng Zhang and Jie Wu and Pan Xie and Xing Wang and Xuefeng Xiao},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2024}
+}
+
+@inproceedings{ladd,
+  title     = {{Fast High-Resolution Image Synthesis with Latent Adversarial Diffusion Distillation}},
+  author    = {Axel Sauer and Frederic Boesel and Tim Dockhorn and Andreas Blattmann and Patrick Esser and Robin Rombach},
+  booktitle = {SIGGRAPH Asia 2024 Conference Papers},
+  year      = {2024}
+}
+
+@misc{fdistill,
+  title        = {{One-step Diffusion Models with $f$-Divergence Distribution Matching}},
+  author       = {Yilun Xu and Weili Nie and Arash Vahdat},
+  year         = {2025},
+  howpublished = {arXiv preprint arXiv:2502.15681}
+}
+
+% ---------------------------------------------------------------------------
+% Video few-step distillation / AR lineage
+% ---------------------------------------------------------------------------
+
+@inproceedings{causvid,
+  title     = {{From Slow Bidirectional to Fast Autoregressive Video Diffusion Models}},
+  author    = {Tianwei Yin and Qiang Zhang and Richard Zhang and William T. Freeman and Fredo Durand and Eli Shechtman and Xun Huang},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2025}
+}
+
+@inproceedings{selfforcing,
+  title     = {{Self Forcing: Bridging the Train-Test Gap in Autoregressive Video Diffusion}},
+  author    = {Xun Huang and Zhengqi Li and Guande He and Mingyuan Zhou and Eli Shechtman},
+  booktitle = {Advances in Neural Information Processing Systems},
+  year      = {2025}
+}
+
+@misc{codmd,
+  title        = {{CoDMD: Copula-aware Distribution Matching Distillation for Fast Video Generation}},
+  author       = {Wenhu Zhang and Kun Cheng and Changyuan Wang and Shiyao Li and Yuechen Zhang and Wenbo Li and Jiajun Zha and Jingyi Zhang and Kang Zhao and Jiaya Jia},
+  year         = {2026},
+  howpublished = {arXiv preprint arXiv:2606.21982}
+}
+
+@inproceedings{sgmd,
+  title     = {{SGMD: Score Gradient Matching Distillation for Few-Step Video Diffusion Distillation}},
+  author    = {Zhuguanyu Wu and Ruihao Gong and Yang Yong and Yushi Huang and Xiangyu Fan and Lei Yang and Dahua Lin and Xianglong Liu},
+  booktitle = {Proceedings of the International Conference on Machine Learning},
+  year      = {2026}
+}
+
+@misc{gpd,
+  title        = {{GPD: Guided Progressive Distillation for Fast and High-Quality Video Generation}},
+  author       = {Xiao Liang and Yunzhu Zhang and Linchao Zhu},
+  year         = {2026},
+  howpublished = {arXiv preprint arXiv:2602.01814}
+}
+
+@inproceedings{phaseddmd,
+  title     = {{Phased DMD: Few-step Distribution Matching Distillation via Score Matching within Subintervals}},
+  author    = {Xiangyu Fan and Zesong Qiu and Zhuguanyu Wu and Fanzhou Wang and Zhiqian Lin and Tianxiang Ren and Dahua Lin and Ruihao Gong and Lei Yang},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2026}
+}
+
+@inproceedings{tmd,
+  title     = {{Transition Matching Distillation for Fast Video Generation}},
+  author    = {Weili Nie and Julius Berner and Nanye Ma and Chao Liu and Saining Xie and Arash Vahdat},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year      = {2026}
+}
+
+@inproceedings{rcm,
+  title     = {{Large Scale Diffusion Distillation via Score-Regularized Continuous-Time Consistency}},
+  author    = {Kaiwen Zheng and Yuji Wang and Qianli Ma and Huayu Chen and Jintao Zhang and Yogesh Balaji and Jianfei Chen and Ming-Yu Liu and Jun Zhu and Qinsheng Zhang},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2026}
+}
+
+@inproceedings{asd,
+  title     = {{Towards One-step Causal Video Generation via Adversarial Self-Distillation}},
+  author    = {Yongqi Yang and Huayang Huang and Xu Peng and Xiaobin Hu and Donghao Luo and Jiangning Zhang and Chengjie Wang and Yu Wu},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2026}
+}
+
+@misc{oneforcing,
+  title        = {{One-Forcing: Towards Stable One-Step Autoregressive Video Generation}},
+  author       = {Jiaqi Feng and Justin Cui and Yuanhao Ban and Cho-Jui Hsieh},
+  year         = {2026},
+  howpublished = {arXiv preprint arXiv:2605.23458}
+}
+
+@misc{anyflow,
+  title        = {{AnyFlow: Any-Step Video Diffusion Model with On-Policy Flow Map Distillation}},
+  author       = {Yuchao Gu and Guian Fang and Yuxin Jiang and Weijia Mao and Song Han and Han Cai and Mike Zheng Shou},
+  year         = {2026},
+  howpublished = {arXiv preprint arXiv:2605.13724}
+}
+
+@inproceedings{piflow,
+  title     = {{pi-Flow: Policy-Based Few-Step Generation via Imitation Distillation}},
+  author    = {Hansheng Chen and Kai Zhang and Hao Tan and Leonidas Guibas and Gordon Wetzstein and Sai Bi},
+  booktitle = {International Conference on Learning Representations},
+  year      = {2026}
+}
+
+@misc{dataforcing,
+  title        = {{Data-Forcing Distillation: Restoring Diversity and Fidelity in Few-Step Video Generation}},
+  author       = {Siyi Chen and Shaowei Liu and Yixuan Jia and Zian Wang and Huan Ling and Qing Qu and Jun Gao},
+  year         = {2026},
+  howpublished = {arXiv preprint arXiv:2606.18478}
+}
+
+@inproceedings{aad1,
+  title     = {{AAD-1: Asymmetric Adversarial Distillation for One-Step Autoregressive Video Generation}},
+  author    = {Haobo Li and Yanhong Zeng and Yunhong Lu and Jiapeng Zhu and Hao Ouyang and Qiuyu Wang and Ka Leong Cheng and Yujun Shen and Zhipeng Zhang},
+  booktitle = {Proceedings of the International Conference on Machine Learning},
+  year      = {2026}
+}
+
+% ---------------------------------------------------------------------------
+% Tools / repositories
+% ---------------------------------------------------------------------------
+
+@misc{fastgen,
+  title        = {{NVIDIA FastGen: Fast Generation from Diffusion Models}},
+  author       = {{NVIDIA}},
+  year         = {2026},
+  howpublished = {\url{https://github.com/NVlabs/FastGen}},
+  note         = {Accessed: 2026-07-31}
+}
+
+@misc{fastwan,
+  title        = {{FastWan-QAD: FastVideo Generates a 5-Second Video in 1.8 Seconds on a Single NVIDIA GeForce RTX 5090 via Quantization-Aware Distillation}},
+  author       = {{Hao AI Lab}},
+  howpublished = {\url{https://haoailab.com/blogs/fastwan-qad/}},
+  note         = {Accessed: 2026-07-31}
+}

@@ -1,0 +1,149 @@
+\subsection{Meeting Minutes}\label{sec:app-minutes}
+% Minutes 1-3 copied verbatim from archive/reports/midterm-2026-05/final_package/meeting-minutes-collection.tex
+% (user instruction 2026-07-31); minutes 4-6 drafted per user instruction: weekly Monday cadence, updated
+% attendee list, simple progress/sync/GPU-coordination content. USER TO REVIEW dates and content before submission.
+
+\subsubsection*{Minutes of the 1st Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, April 20, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; YSzelong LAM; Hao XU; Zhangxizi QIU; Hongrui XIAO; Yijia LI; Zhiming WANG; Rui ZHONG; Jieyi WANG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Reported that the public FFGO workflow is based on a Wan2.2-I2V-A14B + LoRA setup and is not directly equivalent to the FastGen training interface. Proposed to first validate the native FastGen Wan2.2 TI2V/I2V path before attempting to connect a real FFGO teacher.
+  \item \textbf{Prof.\ / leader response:} Agreed that the immediate priority should be a runnable distillation pipeline rather than final visual quality. Suggested separating the problem into two tracks: native Wan2.2 DMD2 feasibility and later FFGO teacher integration.
+  \item \textbf{Action items:} Check the available WanI2V configuration, confirm the OpenVid WebDataset path, and prepare a DMD2 smoke run based on the existing FastGen Wan2.2 5B configuration.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. The next discussion would focus on memory feasibility and whether the native CFG setting can run under the available GPU resources.
+
+\subsubsection*{Minutes of the 2nd Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, April 27, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; YSzelong LAM; Hao XU; Zhangxizi QIU; Hongrui XIAO; Yijia LI; Zhiming WANG; Rui ZHONG; Jieyi WANG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Reported that FastGen native Wan2.2 TI2V 5B / DMD2 can enter the training loop but has strong memory pressure. The original CFG-on setting caused an OOM during the teacher guidance path, while a reduced-resource setting could pass the first real student update and save an initial checkpoint.
+  \item \textbf{Prof.\ / leader response:} Recommended treating the result as a systems feasibility baseline. The feedback was to keep careful notes on GPU memory, checkpoint saving, and resume behavior, and to avoid presenting visual quality claims before there is a consistent evaluation protocol.
+  \item \textbf{Action items:} Continue monitoring the 5000-iteration run, confirm checkpoint continuity, prepare fixed-prompt student inference after checkpoint saving, and keep a separate list of remaining gaps for FFGO A14B + LoRA teacher integration.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. The next discussion would focus on whether a CFG-on low-resource variant could be made trainable.
+
+\subsubsection*{Minutes of the 3rd Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, May 4, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; YSzelong LAM; Hao XU; Zhangxizi QIU; Hongrui XIAO; Yijia LI; Zhiming WANG; Rui ZHONG; Jieyi WANG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Summarized the low-resource configuration search: 81f + CFG on reached OOM, 49f became too short for the discriminator temporal kernel, and 65f + CFG on became the main trainable setting. Also reported that the 5000-iteration checkpoint sequence was complete and that resume training produced a later 0013000 checkpoint.
+  \item \textbf{Prof.\ / leader response:} Suggested framing the midterm report around training feasibility, checkpoint continuity, and inference-flow archiving. The response was to keep visual samples as supporting assets only and leave subjective or quantitative video-quality assessment for a later stage.
+  \item \textbf{Action items:} Prepare the midterm report, organize checkpoint and inference assets, list unresolved items such as the 0022000 save failure and exact quality evaluation plan, and keep future comparison with teammate configurations as an optional follow-up.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. Follow-up work would focus on report preparation and a more systematic evaluation plan.
+
+\subsubsection*{Minutes of the 4th Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, June 8, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; Zhangxizi QIU; Hongrui XIAO; Zhiming WANG; Rui ZHONG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes. Members took turns reporting individual progress and received feedback.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Reported that the task line has moved to distilling the public Wan2.1-T2V-1.3B 50-step teacher into a few-step student with DMD2 on FastGen. A direct 50-to-4 baseline run now closes the full loop of training, checkpointing, and inference, and a first timing sweep shows a per-video speedup of roughly 25 times. Proposed a staged 50-to-8-to-4 schedule (step-count relay) as the main training plan.
+  \item \textbf{Prof.\ / leader response:} Agreed to proceed on the new line. Advised changing only one major factor per experiment and keeping the per-run configuration as the single source of hyperparameter truth, so that later comparisons remain attributable.
+  \item \textbf{Action items:} Train the 8-step intermediate student, prepare the second-stage relay configuration, and draft fixed prompt sets for later evaluation. GPU allocation on the shared node for the coming week was confirmed among members.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. The next discussion would focus on the relay training progress and the evaluation plan.
+
+\subsubsection*{Minutes of the 5th Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, July 6, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; Zhangxizi QIU; Hongrui XIAO; Zhiming WANG; Rui ZHONG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes. Members took turns reporting individual progress and received feedback.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Reported that both relay stages have been trained and that visual inspection suggests improvement with training, but argued that a quantitative protocol is needed before drawing conclusions. Also summarized a literature and naming check: the "phased/progressive DMD" name is taken by other work, and multi-stage relay protocols have image-domain precedents, so the project narrative should center on controlled measurement rather than protocol novelty.
+  \item \textbf{Prof.\ / leader response:} Supported building the quantitative protocol first (multi-dimension quality, cross-seed diversity, and motion measures) and registering a neutral hypothesis before the relay-versus-direct comparison. Reminded members to coordinate long training jobs on the shared node.
+  \item \textbf{Action items:} Score all archived checkpoints in one pass under the protocol, launch matched-budget direct-distillation arms, and agree a GPU sharing schedule with the other node users for the coming two weeks.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. The next discussion would focus on the quantitative results and the comparison verdict.
+
+\subsubsection*{Minutes of the 6th Project Meeting}
+
+\begin{tabular}{@{}p{2.4cm}p{0.72\linewidth}@{}}
+  \textbf{Date} & Monday, July 20, 2026 \\
+  \textbf{Time} & 2:00 pm \\
+  \textbf{Place} & Online Zoom meeting \\
+  \textbf{Present} & Luyan LIU; Hingchin CHEN; Zhangxizi QIU; Hongrui XIAO; Zhiming WANG; Rui ZHONG; Tszwai FONG; Prof.\ Kai CHEN \\
+  \textbf{Apology} & None \\
+  \textbf{Note-taker} & Hingchin Chen \\
+\end{tabular}
+
+\paragraph{A\quad Approval of Minutes}
+The meeting lasted approximately 60 minutes. Members took turns reporting individual progress and received feedback.
+
+\paragraph{B\quad Discussion Items}
+\begin{itemize}
+  \item \textbf{Hingchin Chen:} Reported that the one-pass quantitative scan overturned the earlier subjective checkpoint picks on both training lines, and that the preregistered relay-versus-direct comparison has been completed: at a matched budget the relay shows no quality gain and retains less cross-seed diversity, which now looks like the main degradation axis. Proposed a discriminator ablation (adversarial branch off; independent noise pairing) as the next step to locate the source.
+  \item \textbf{Prof.\ / leader response:} Agreed that diagnosis and attribution is the right framing for the final report, and advised reporting the negative results plainly as controlled exclusions. Asked to complete the ablations and freeze all numbers before the July 28 presentation.
+  \item \textbf{Action items:} Run the two discriminator ablation arms, add a standard-benchmark table for the headline models, freeze the numbers, and prepare the July 28 presentation and the July 31 report. A full-node window for the ablation runs was arranged with the other node users.
+\end{itemize}
+
+\paragraph{C\quad Meeting Adjournment}
+The meeting adjourned at 3:00 pm. Follow-up work would focus on the final presentation and the report.
+

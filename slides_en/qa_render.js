@@ -1,5 +1,7 @@
-// HTML mirror renderer for deck QA: reads qa/ops.json (recorded pptxgenjs ops) and emits
-// per-slide 1333.3x750 px HTML pages with identical geometry/fonts. Rendered to PNG via qlmanage.
+// HTML mirror renderer for deck QA: reads qa/<OPS_FILE> (recorded pptxgenjs ops) and emits
+// per-slide 1333.3x750 px HTML pages with identical geometry. Rendered to PNG via qlmanage.
+// Merged feature set (2026-07-27): OPS_FILE/QA_PREFIX env overrides, table-cell text-run arrays,
+// dash + dashDot lines, border:none cells, arrow markers. Poster images come from ../slides/qa_covers.
 const fs = require("fs");
 const path = require("path");
 
@@ -7,7 +9,8 @@ const S = 73; // px per inch (973px page fits QuickLook 980px layout width)
 const OPS_FILE = process.env.OPS_FILE || "ops.json"; // e.g. OPS_FILE=ops_v2.json for the V2 deck
 const PREFIX = process.env.QA_PREFIX || "slide"; // e.g. QA_PREFIX=slidev2_ for the V2 deck
 const OPS = JSON.parse(fs.readFileSync(path.join(__dirname, "qa", OPS_FILE), "utf8"));
-const QACOV = path.join(__dirname, "qa_covers");
+const QACOV = path.resolve(__dirname, "../slides/qa_covers");
+const FAMILY = "'Helvetica Neue','PingFang SC'";
 
 const px = (inch) => (inch * S).toFixed(1);
 const fpx = (pt) => ((pt * S) / 72).toFixed(1);
@@ -40,6 +43,7 @@ function renderRuns(arr) {
     if (o.bold) st.push("font-weight:600");
     if (o.color) st.push(`color:#${o.color}`);
     if (o.underline) st.push("text-decoration:underline");
+    if (o.fontSize) st.push(`font-size:${fpx(o.fontSize)}px`);
     const inner = esc(r.text).replace(/\n/g, "<br>");
     if (o.bullet) {
       const mb = o.paraSpaceAfter ? `margin-bottom:${fpx(o.paraSpaceAfter)}px;` : "";
@@ -76,7 +80,7 @@ function renderShape(args, svgLines) {
     const x2 = (o.x + o.w) * S, y2 = (o.flipV ? o.y : o.y + o.h) * S;
     const w = ((o.line && o.line.width) || 1) * S / 72;
     const col = "#" + ((o.line && o.line.color) || "1F3864");
-    const dash = o.line && o.line.dashType === "dash" ? ' stroke-dasharray="7,5"' : "";
+    const dash = o.line && o.line.dashType === "dash" ? ' stroke-dasharray="7,5"' : (o.line && o.line.dashType === "dashDot" ? ' stroke-dasharray="9,4,2,4"' : "");
     const arrow = o.line && o.line.endArrowType ? ' marker-end="url(#arr)"' : "";
     svgLines.push(`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" stroke="${col}" stroke-width="${w.toFixed(1)}"${dash}${arrow}/>`);
     return "";
@@ -99,7 +103,7 @@ function renderTable(args) {
   const [rows, o] = args;
   const colW = o.colW;
   const rowH = Array.isArray(o.rowH) ? o.rowH : rows.map(() => o.rowH || 0.4);
-  let html = `<table style="position:absolute;left:${px(o.x)}px;top:${px(o.y)}px;width:${px(o.w)}px;border-collapse:collapse;table-layout:fixed;font-family:'PingFang SC'">`;
+  let html = `<table style="position:absolute;left:${px(o.x)}px;top:${px(o.y)}px;width:${px(o.w)}px;border-collapse:collapse;table-layout:fixed;font-family:${FAMILY}">`;
   html += "<colgroup>" + colW.map((w) => `<col style="width:${px(w)}px">`).join("") + "</colgroup>";
   rows.forEach((row, ri) => {
     html += `<tr style="height:${px(rowH[ri] || 0.4)}px">`;
@@ -112,12 +116,11 @@ function renderTable(args) {
         c.underline ? "text-decoration:underline" : "",
         `text-align:${c.align || "left"}`,
         c.fill && c.fill.color ? `background:#${c.fill.color}` : "",
-        "border:0.7px solid #D9D9D9", "padding:2px 8px", "vertical-align:middle", "line-height:1.15em",
+        (c.border && c.border.type === "none" ? "border:none" : "border:0.7px solid #D9D9D9"), "padding:2px 8px", "vertical-align:middle", "line-height:1.15em",
       ].filter(Boolean);
       const span = c.colspan ? ` colspan="${c.colspan}"` : "";
       let inner;
       if (Array.isArray(cell.text)) {
-        // cell text-run array (e.g. value + colored marker)
         inner = cell.text.map((r) => {
           const ro = r.options || {};
           const rst = [ro.bold ? "font-weight:600" : "", ro.color ? `color:#${ro.color}` : "", ro.underline ? "text-decoration:underline" : ""].filter(Boolean).join(";");
@@ -146,7 +149,7 @@ OPS.forEach((rec, i) => {
   const svg = `<svg style="position:absolute;left:0;top:0;pointer-events:none" width="973" height="547" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#767676"/></marker></defs>${svgLines.join("")}</svg>`;
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=1205"><style>
   html,body{margin:0;padding:0}
-  body{width:973px;height:547px;position:relative;background:#fff;font-family:'PingFang SC';overflow:hidden}
+  body{width:973px;height:547px;position:relative;background:#fff;font-family:${FAMILY};overflow:hidden}
   div{box-sizing:border-box}
   </style></head><body>${body}${svg}</body></html>`;
   fs.writeFileSync(path.join(__dirname, "qa", `${PREFIX}${String(i + 1).padStart(2, "0")}.html`), html);
